@@ -1,4 +1,4 @@
-package star.programmers.annaabi.annaabi;
+package star.programmers.annaabi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

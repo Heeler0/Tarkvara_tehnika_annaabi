@@ -1,4 +1,4 @@
-package star.programmers.annaabi.annaabi;
+package star.programmers.annaabi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
