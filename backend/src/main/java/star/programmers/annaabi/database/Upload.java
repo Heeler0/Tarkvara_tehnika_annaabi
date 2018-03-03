@@ -18,6 +18,7 @@ public class Upload
     private Long id;
 
     private String fileName;
+    private String fileDescription;
     private int fileSize;
     private Long uploadDate;
 
@@ -49,5 +50,25 @@ public class Upload
     public void setUploadDate(Long uploadDate)
     {
         this.uploadDate = uploadDate;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public String getFileDescription()
+    {
+        return fileDescription;
+    }
+
+    public void setFileDescription(String fileDescription)
+    {
+        this.fileDescription = fileDescription;
     }
 }
