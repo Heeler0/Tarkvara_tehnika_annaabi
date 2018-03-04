@@ -46,6 +46,10 @@ public class FileUploadController
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
     {
         // make sure the file is valid before saving
+        if (!file.getOriginalFilename().endsWith(".pdf") && !file.getOriginalFilename().endsWith(".docx"))
+            return "Invalid file extension";
+
+        // save file to storage
         storageService.store(file);
 
         // save file to database
