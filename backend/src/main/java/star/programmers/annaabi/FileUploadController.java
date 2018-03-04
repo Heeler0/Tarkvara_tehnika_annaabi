@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import star.programmers.annaabi.database.Upload;
+import star.programmers.annaabi.database.UploadRepository;
 import star.programmers.annaabi.storage.StorageService;
 import star.programmers.annaabi.storage.exceptions.StorageFileNotFoundException;
 
@@ -18,6 +20,9 @@ import star.programmers.annaabi.storage.exceptions.StorageFileNotFoundException;
 public class FileUploadController
 {
     private final StorageService storageService;
+
+    @Autowired
+    private UploadRepository uploadRepository;
 
     @Autowired
     public FileUploadController(StorageService storageService)
@@ -42,6 +47,15 @@ public class FileUploadController
     {
         // make sure the file is valid before saving
         storageService.store(file);
+
+        // save file to database
+        Upload upload = new Upload();
+        upload.setFileName(file.getOriginalFilename());
+        upload.setFileSize((int) file.getSize());
+        upload.setFileDescription("File: " + file.getOriginalFilename());
+        upload.setUploadDate(System.currentTimeMillis() / 1000);
+        uploadRepository.save(upload);
+        System.out.println("Saved file: " + upload.getFileName());
 
         redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/uploadPage";

@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Upload
 {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.TABLE)
     private Long id;
 
     private String fileName;
