@@ -10,4 +10,5 @@ public interface UploadRepository extends PagingAndSortingRepository<Upload, Lon
 {
     List<Upload> findByFileName(String fileName);
     List<Upload> findAll();
+    List<Upload> findAllByOrderByIdDesc();
 }
