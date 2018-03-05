@@ -48,8 +48,11 @@ public class FileUploadController
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
     {
         // make sure the file is valid before saving
-        if (!file.getOriginalFilename().endsWith(".pdf") && !file.getOriginalFilename().endsWith(".docx"))
-            return "Invalid file extension";
+        if (!isValidFile(file))
+        {
+            System.out.println("File: " + file.getOriginalFilename() + " is not valid with content type: " + file.getContentType());
+            return "";
+        }
 
         // save file to storage
         storageService.store(file);
@@ -65,6 +68,20 @@ public class FileUploadController
 
         redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/uploadPage";
+    }
+
+    public boolean isValidFile(MultipartFile file)
+    {
+        String fileName = file.getOriginalFilename();
+        String contentType = file.getContentType();
+
+        if (fileName.endsWith(".pdf") && contentType.equals("application/pdf"))
+            return true;
+
+        if (fileName.endsWith(".docx") && contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+            return true;
+
+        return false;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
