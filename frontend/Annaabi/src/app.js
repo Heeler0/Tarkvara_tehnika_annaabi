@@ -44,6 +44,30 @@ export class app {
     return desc;
   }
 
+  doUpload() {
+    //console.log("Works");
+    return this.upload('api/upload', {}, this.selectedFiles[0]).then(() => this.clearFiles());
+  }
 
+  upload(url, data, files, method = "POST") {
+    let formData = new FormData();
 
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files[${i}]`, files[i]);
+    }
+
+    return this.http.fetch(url, {
+      method: method,
+      body: formData,
+      headers: new Headers()
+    }).then(response => response.json());
+  }
+  constructor () {
+
+    this.http = new HttpClient();
+    this.http.configure(config => { config
+      .useStandardConfiguration()
+      .withBaseUrl(`api/upload`); // hetkene väljund oleks http://localhost:9000/api/uploadapi/upload
+    });
+  }
 }
