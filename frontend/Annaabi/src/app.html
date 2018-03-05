@@ -2,6 +2,8 @@
   ${getJson()}
   <require from="css/normalize.css"></require>
   <require from="css/skeleton.css"></require>
+  <require from="css/fileContainer.css"></require>
+
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -42,9 +44,11 @@
 			<a class="button button-primary" href="#">LEHEST</a>
       <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
         <table>
-				  <tr><td><input type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles"></td>
-            <td><input type="submit" value="Upload" if.bind="selectedFiles.length > 0"/></td></tr>
-			  </table>
+				  <tr><td><label class="button fileContainer"> Click me! To insert file here:
+            <input type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+          </label></td>
+            <td><input class="button-primary" type="submit" value="Upload" if.bind="selectedFiles.length > 0"/></td></tr>
+          </table>
       </form>
 		</span>
       <span style="float: right;">
