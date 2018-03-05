@@ -23,7 +23,10 @@ export class app {
 
   convertDate(number) {
     var date = new Date(number * 1000);
-    return date;
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    return day + '.' + monthIndex + '.' + year;
   }
 
   getDate(obj) {
