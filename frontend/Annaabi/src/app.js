@@ -53,7 +53,7 @@ export class app {
 
   doUpload() {
     //console.log("Works");
-    return this.upload('api/upload', {}, this.selectedFiles[0]).then(() => this.clearFiles());
+    return this.upload('http://194.135.95.77:8080/api/uploadFile', {}, this.selectedFiles[0]).then(() => this.clearFiles());
   }
 
   upload(url, data, files, method = "POST") {
@@ -74,7 +74,7 @@ export class app {
     this.http = new HttpClient();
     this.http.configure(config => { config
       .useStandardConfiguration()
-      .withBaseUrl(`api/upload`); // hetkene väljund oleks http://localhost:9000/api/uploadapi/upload
+      .withBaseUrl(`http://194.135.95.77:8080/api/uploadFile`); // hetkene väljund oleks http://localhost:9000/api/uploadapi/upload
     });
   }
 }
