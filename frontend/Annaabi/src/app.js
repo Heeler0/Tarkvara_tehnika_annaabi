@@ -44,6 +44,13 @@ export class app {
     return size
   }
 
+  download(obj) {
+    var url = "http://194.135.95.77:8080/api/getFile/";
+    url += obj.fileName;
+    console.log(url);
+    return url;
+  }
+
   doUpload() {
     //console.log("Works");
     return this.upload('api/upload', {}, this.selectedFiles[0]).then(() => this.clearFiles());
