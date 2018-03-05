@@ -51,7 +51,6 @@ export class app {
   download(obj) {
     var url = "http://194.135.95.77:8080/api/getFile/";
     url += obj.fileName;
-    console.log(url);
     return url;
   }
 
