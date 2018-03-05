@@ -31,6 +31,7 @@ public class FileUploadController
     }
 
     // Get a file with a specific name
+    @CrossOrigin
     @GetMapping("/api/getFile/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename)
@@ -42,6 +43,7 @@ public class FileUploadController
     }
 
     // Upload a file
+    @CrossOrigin
     @PostMapping("/api/uploadFile")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
     {
