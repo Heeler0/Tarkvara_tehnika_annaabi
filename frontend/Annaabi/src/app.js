@@ -54,7 +54,6 @@ export class app {
   }
 
   doUpload() {
-    //console.log("Works");
     return this.upload('http://194.135.95.77:8080/api/uploadFile', {}, this.selectedFiles[0]).then(() => this.clearFiles());
   }
 

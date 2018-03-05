@@ -40,9 +40,11 @@
 			<a class="button button-primary" href="#">UUED</a>
 			<a class="button button-primary" href="#">PARIMAD</a>
 			<a class="button button-primary" href="#">LEHEST</a>
-      <form submit.delegate="doUpload()">
-        <input id="files" type="file" accept="application/pdf" files.bind="selectedFiles" class="form-control">
-        <input type="submit" class="button" value="Upload" if.bind="selectedFiles.length > 0" />
+      <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
+        <table>
+				  <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				  <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			  </table>
       </form>
 		</span>
       <span style="float: right;">
@@ -62,8 +64,7 @@
             </h3>
           </div>
           <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px;">
-            <p style="padding-bottom: 0px;">
-              ${getDesc(item)}
+            <p innerHTML.bind="getDesc(item)" style="padding-bottom: 0px;">
             </p>
           </div>
           <a href="${download(item)}"><button>Download</button></a>
