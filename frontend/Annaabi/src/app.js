@@ -19,7 +19,7 @@ export class app {
   convertDate(number) {
     var date = new Date(number * 1000);
     var day = date.getDate();
-    var monthIndex = date.getMonth();
+    var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
     return day + '.' + monthIndex + '.' + year;
   }
