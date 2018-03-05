@@ -48,6 +48,7 @@
           "aurelia-event-aggregator",
           "aurelia-framework",
           "aurelia-history",
+          "aurelia-fetch-client",
           "aurelia-history-browser",
           "aurelia-loader",
           "aurelia-loader-default",

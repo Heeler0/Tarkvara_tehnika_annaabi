@@ -1,4 +1,5 @@
-<template>
+<template xmlns:font="http://www.w3.org/1999/xhtml">
+  ${getJson()}
   <require from="css/normalize.css"></require>
   <require from="css/skeleton.css"></require>
   <!DOCTYPE html>
@@ -22,8 +23,6 @@
 
     <!-- CSS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
 
     <!-- Favicon
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -41,6 +40,10 @@
 			<a class="button button-primary" href="#">UUED</a>
 			<a class="button button-primary" href="#">PARIMAD</a>
 			<a class="button button-primary" href="#">LEHEST</a>
+      <form submit.delegate="doUpload()">
+        <input id="files" type="file" accept="application/pdf" files.bind="selectedFiles" class="form-control">
+        <input type="submit" class="button" value="Upload" if.bind="selectedFiles.length > 0" />
+      </form>
 		</span>
       <span style="float: right;">
 			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;" >
@@ -52,14 +55,19 @@
   <div class="container" style="margin-top: 1%;">
     <div class="row">
       <div class="twelve columns">
-        <div class="container" style="background: #EEE; width: 100%; border-radius: 4px; margin-bottom: 1%; padding: 1%;">
+        <div class="container" style="background: #EEE; width: 100%; border-radius: 4px; margin-bottom: 1%; padding: 1%;" repeat.for="item of data">
+          <div>
+            <h3>
+              ${getFileName(item)}
+            </h3>
+          </div>
           <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px;">
             <p style="padding-bottom: 0px;">
-              Integer tincidunt vel nibh a luctus. Fusce suscipit ex ante, non vehicula turpis ultricies vulputate. Pellentesque et ultricies diam. Donec sollicitudin dui non tellus convallis tincidunt. Integer quis ligula quis lorem hendrerit dignissim. Pellentesque viverra lectus et nibh feugiat, quis vehicula felis mollis. Nulla porta mauris sit amet felis hendrerit tempus. Fusce hendrerit felis id tortor tempor fermentum. Nulla luctus, est commodo sollicitudin euismod, ante diam blandit ante, id convallis augue justo in tortor. Nam in massa vel erat eleifend posuere. Vivamus ultricies, sem sit amet imperdiet suscipit, ligula nibh ornare orci, eu scelerisque est turpis in risus. Donec varius, arcu in condimentum vehicula, dui erat rhoncus massa, non malesuada dui est non tortor. In magna enim, ultricies ut diam id, consequat finibus dolor.
+              ${getDesc(item)}
             </p>
           </div>
-          <div style="margin-top: 1%; margin-right: 1%; float: right; font-style: italic;">Posted by User291 on 21.01.2018</div>
-        </div>
+          <button>Download</button>
+          <div style="margin-top: 1%; margin-right: 1%; float: right; font-style: italic;">Posted by User291 on ${convertDate(getDate(item))}</div>
         </div>
       </div>
     </div>
