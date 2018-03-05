@@ -44,6 +44,11 @@ export class app {
     return desc;
   }
 
+  getSize(obj) {
+    var size = obj.fileSize;
+    return size
+  }
+
   doUpload() {
     //console.log("Works");
     return this.upload('api/upload', {}, this.selectedFiles[0]).then(() => this.clearFiles());
