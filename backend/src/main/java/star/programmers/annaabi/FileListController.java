@@ -26,7 +26,7 @@ public class FileListController
         try
         {
             // get all rows from uploads table
-            List<Upload> uploads = uploadRepository.findAll();
+            List<Upload> uploads = uploadRepository.findAllByOrderByIdDesc();
 
             // serialize data in json format for javascript to parse
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(uploads);
