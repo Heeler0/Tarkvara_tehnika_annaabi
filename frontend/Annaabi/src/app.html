@@ -40,6 +40,10 @@
 			<a class="button button-primary" href="#">UUED</a>
 			<a class="button button-primary" href="#">PARIMAD</a>
 			<a class="button button-primary" href="#">LEHEST</a>
+      <form submit.delegate="doUpload()">
+        <input id="files" type="file" accept="application/pdf" files.bind="selectedFiles" class="form-control">
+        <input type="submit" class="button" value="Upload" if.bind="selectedFiles.length > 0" />
+      </form>
 		</span>
       <span style="float: right;">
 			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;" >
