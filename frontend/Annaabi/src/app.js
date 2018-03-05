@@ -43,7 +43,9 @@ export class app {
 
   getSize(obj) {
     var size = obj.fileSize;
-    return size
+    size = size / 1024;
+    size = Math.round(size)
+    return size + "KB";
   }
 
   download(obj) {
