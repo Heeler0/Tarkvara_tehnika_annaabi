@@ -53,30 +53,4 @@ export class app {
     url += obj.fileName;
     return url;
   }
-
-  doUpload() {
-    return this.upload('http://194.135.95.77:8080/api/uploadFile', {}, this.selectedFiles[0]).then(() => this.clearFiles());
-  }
-
-  upload(url, data, files, method = "POST") {
-    let formData = new FormData();
-
-    for (let i = 0; i < files.length; i++) {
-      formData.append(`files[${i}]`, files[i]);
-    }
-
-    return this.http.fetch(url, {
-      method: method,
-      body: formData,
-      headers: new Headers()
-    }).then(response => response.json());
-  }
-  constructor () {
-
-    this.http = new HttpClient();
-    this.http.configure(config => { config
-      .useStandardConfiguration()
-      .withBaseUrl(`http://194.135.95.77:8080/api/uploadFile`); // hetkene väljund oleks http://localhost:9000/api/uploadapi/upload
-    });
-  }
 }
