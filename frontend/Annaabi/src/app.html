@@ -44,15 +44,32 @@
 			<a class="button button-primary" href="#">LEHEST</a>
       <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
         <table>
-				  <tr><td><label class="button fileContainer"> Click me! To insert file here:
-            <input type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
-          </label></td>
-            <td><input class="button-primary" type="submit" value="Upload" if.bind="selectedFiles.length > 0"/></td></tr>
-          </table>
+				  <tr>
+            <label class="button fileContainer button-primary"> Lisage fail:
+              <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+            </label>
+              <input class="button-primary" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
+            <select id="selectSubject" if.bind="selectedFiles.length > 0">
+              <option value="" disabled selected>Valige õppeaine</option>
+              <option value="Option 1">Matemaatika</option>
+              <option value="Option 2">Ajalugu</option>
+              <option value="Option 3">Bioloogia</option>
+              <option value="Option 4">Kirjandus</option>
+              <option value="Option 5">Füüsika</option>
+              <option value="Option 6">Keemia</option>
+              <option value="Option 7">Geograafia</option>
+              <option value="Option 8">Inimeseõpetus</option>
+              <option value="Option 9">Ühiskonnaõpetus</option>
+              <option value="Option 10">Muusika </option>
+              <option value="Option 11">Emakeel</option>
+              <option value="Option 11">Võõrkeeled</option>
+            </select>
+          </tr>
+        </table>
       </form>
 		</span>
       <span style="float: right;">
-			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;" >
+			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
 			<a class="button" href="#">LOGI SISSE</a>
 		</span>
     </div>
@@ -61,7 +78,9 @@
   <div class="container" style="margin-top: 1%;">
     <div class="row">
       <div class="twelve columns">
-        <div class="container" style="background: #EEE; width: 100%; border-radius: 4px; margin-bottom: 1%; padding: 1%;" repeat.for="item of data1">
+        <div class="container"
+             style="background: #EEE; width: 100%; border-radius: 4px; margin-bottom: 1%; padding: 1%;"
+             repeat.for="item of data1">
           <div>
             <h3>
               ${getFileName(item)}
@@ -72,9 +91,13 @@
             </p>
           </div>
           <div style="margin-top: 1%; margin-right: 1%; float: left;">
-            <a href="${download(item)}"><button>Download - ${getSize(item)}</button></a>
+            <a href="${download(item)}">
+              <button>Download - ${getSize(item)}</button>
+            </a>
           </div>
-          <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;">Uploaded by Anonymous on ${convertDate(getDate(item))}</div>
+          <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;">Uploaded by Anonymous on
+            ${convertDate(getDate(item))}
+          </div>
         </div>
       </div>
     </div>
