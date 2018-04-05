@@ -42,13 +42,22 @@
 			<a class="button button-primary" href="#">PARIMAD</a>
 			<a class="button button-primary" href="#">LEHEST</a>
       <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
-        <table>
-				  <tr>
+        <span style="float: left;">  
             <label class="button fileContainer button-primary"> Lisage fail:
               <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
             </label>
-              <input class="button-primary" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
-            <select id="selectSubject" if.bind="selectedFiles.length > 0">
+        </span>
+      </form>
+		</span>
+      <span style="float: right;">
+			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
+			<a class="button" href="#">LOGI SISSE</a>
+		</span>
+        <span style="float: left;">
+        <input class="button-primary" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
+            <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
+
+            <select id="selectSubject" if.bind="selectedFiles.length > 0" required>
               <option value="" disabled selected>Valige õppeaine</option>
               <option value="Option 1">Matemaatika</option>
               <option value="Option 2">Ajalugu</option>
@@ -63,14 +72,7 @@
               <option value="Option 11">Emakeel</option>
               <option value="Option 11">Võõrkeeled</option>
             </select>
-          </tr>
-        </table>
-      </form>
-		</span>
-      <span style="float: right;">
-			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
-			<a class="button" href="#">LOGI SISSE</a>
-		</span>
+        </span>
     </div>
   </header>
 
