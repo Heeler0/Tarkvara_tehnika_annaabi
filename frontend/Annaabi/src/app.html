@@ -41,22 +41,20 @@
 			<a class="button button-primary" href="#">UUED</a>
 			<a class="button button-primary" href="#">PARIMAD</a>
 			<a class="button button-primary" href="#">LEHEST</a>
-      <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
-        <span style="float: left;">  
-            <label class="button fileContainer button-primary"> Lisage fail:
-              <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
-            </label>
-        </span>
-      </form>
+
 		</span>
       <span style="float: right;">
 			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
 			<a class="button" href="#">LOGI SISSE</a>
 		</span>
+
         <span style="float: left;">
+            <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
+            <label class="button fileContainer button-primary"> Lisage fail:
+              <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+            </label>
         <input class="button-primary" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
             <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
-
             <select id="selectSubject" if.bind="selectedFiles.length > 0" required>
               <option value="" disabled selected>Valige õppeaine</option>
               <option value="Option 1">Matemaatika</option>
@@ -70,13 +68,32 @@
               <option value="Option 9">Ühiskonnaõpetus</option>
               <option value="Option 10">Muusika </option>
               <option value="Option 11">Emakeel</option>
-              <option value="Option 11">Võõrkeeled</option>
+              <option value="Option 12">Võõrkeeled</option>
             </select>
+            </form>
+
         </span>
     </div>
   </header>
-
-  <div class="container" style="margin-top: 1%;">
+  <div style="width: 100%; overflow: hidden;">
+    <div class="dropdown" style="width: 8%; float: left;">
+      <button class="button">Õppeained</button>
+      <div class="dropdown-content">
+        <a  href="#Matemaatika">Matemaatika</a>
+        <a  href="#Ajalugu">Ajalugu</a>
+        <a  href="#Bioloogia">Bioloogia</a>
+        <a  href="#Kirjandus">Kirjandus</a>
+        <a  href="#Füüsika">Füüsika</a>
+        <a  href="#Keemia">Keemia</a>
+        <a  href="#Geograafia">Geograafia</a>
+        <a  href="#Inimeseõpetus">Inimeseõpetus</a>
+        <a  href="#Ühiskonnaõpetus">Ühiskonnaõpetus</a>
+        <a  href="#Muusika">Muusika</a>
+        <a  href="#Emakeel">Emakeel</a>
+        <a  href="#Võõrkeeled">Võõrkeeled</a>
+      </div>
+    </div>
+  <div class="container" style="margin: auto; margin-top: 1%;" >
     <div class="row">
       <div class="twelve columns">
         <div class="container"
@@ -102,6 +119,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <footer style="width: 100%; border-top: solid 1px #d8d8d8; margin-top: 0.7%">

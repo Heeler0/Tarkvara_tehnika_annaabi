@@ -29,8 +29,6 @@
 
 }
 
-/* Example stylistic flourishes */
-
 .fileContainer {
   color: #FFFFF9;
 
@@ -39,6 +37,41 @@
   border-radius: 4px;
   float: left;
   padding: 0 30px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: #FFF;
+  background-color: #0FA0CE
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #0FA0CE;
 }
 
 
