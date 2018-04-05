@@ -3,7 +3,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 export class app {
   data1;
 
-  constructor () {
+  constructor() {
     let client = new HttpClient();
     client.fetch("http://194.135.95.77:8080/api/getFileList")
       .then(response => response.json())
@@ -12,7 +12,7 @@ export class app {
       });
   }
 
-  //selectedCategory (categoryID) {
+  //selectedCategory(categoryID) {
     //let client = new HttpClient();
     //client.fetch()
       //.then(response => response.json())
