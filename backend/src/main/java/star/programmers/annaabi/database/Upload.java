@@ -12,10 +12,15 @@ public class Upload
     private Long id;
 
     private String fileName;
+    private String title;
     @Column(length=1024)
     private String fileDescription;
     private int fileSize;
     private Long uploadDate;
+    private Long categoryId;
+    private Long uploaderId;
+    @Transient
+    private Long voteCount = 0L;
 
     public String getFileName()
     {
@@ -65,5 +70,45 @@ public class Upload
     public void setFileDescription(String fileDescription)
     {
         this.fileDescription = fileDescription;
+    }
+
+    public Long getCategoryId()
+    {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId)
+    {
+        this.categoryId = categoryId;
+    }
+
+    public Long getUploaderId()
+    {
+        return uploaderId;
+    }
+
+    public void setUploaderId(Long uploaderId)
+    {
+        this.uploaderId = uploaderId;
+    }
+
+    public Long getVoteCount()
+    {
+        return voteCount;
+    }
+
+    public void setVoteCount(Long voteCount)
+    {
+        this.voteCount = voteCount;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
     }
 }
