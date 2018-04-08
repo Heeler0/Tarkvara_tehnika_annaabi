@@ -3,6 +3,14 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 export class app {
   data1;
   nameOfSearch = "";
+  selectCategory;
+  headerOfPostedFile;
+  URL;
+
+  uploadURL () {
+    console.log(1);
+    this.URL = "http://194.135.95.77:8080/api/uploadFile?title=" + this.headerOfPostedFile + "&categoryId=" + this.selectCategory;
+  }
 
   constructor() {
     let client = new HttpClient();
@@ -33,7 +41,6 @@ export class app {
 
   searchByName() {
     var ans = this.nameOfSearch;
-    console.log(ans);
     let client = new HttpClient();
     client.fetch("http://194.135.95.77:8080/api/getFileList?query=" + ans)
       .then(response => response.json())

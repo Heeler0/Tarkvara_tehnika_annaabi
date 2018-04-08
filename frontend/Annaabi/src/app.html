@@ -80,27 +80,27 @@
         <button class="button" type="submit">Otsi</button>
       </form>
 		</span>
-      <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
+      <form method="POST" enctype="multipart/form-data" action="">
         <label class="button fileContainer button-primary"> Lisage fail:
           <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
         </label>
         <div>
-          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
-          <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
-          <select id="selectSubject" if.bind="selectedFiles.length > 0" required>
+          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0" />
+          <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required value.bind="headerOfPostedFile">
+          <select id="selectSubject" value.bind="selectCategory" if.bind="selectedFiles.length > 0" required>
             <option value="" disabled selected>Valige õppeaine</option>
-            <option value="Option 1">Matemaatika</option>
-            <option value="Option 2">Ajalugu</option>
-            <option value="Option 3">Bioloogia</option>
-            <option value="Option 4">Kirjandus</option>
-            <option value="Option 5">Füüsika</option>
-            <option value="Option 6">Keemia</option>
-            <option value="Option 7">Geograafia</option>
-            <option value="Option 8">Inimeseõpetus</option>
-            <option value="Option 9">Ühiskonnaõpetus</option>
-            <option value="Option 10">Muusika </option>
-            <option value="Option 11">Emakeel</option>
-            <option value="Option 12">Võõrkeeled</option>
+            <option value="1" >Matemaatika</option>
+            <option value="2">Ajalugu</option>
+            <option value="3">Bioloogia</option>
+            <option value="4">Kirjandus</option>
+            <option value="5">Füüsika</option>
+            <option value="6">Keemia</option>
+            <option value="7">Geograafia</option>
+            <option value="8">Inimeseõpetus</option>
+            <option value="9">Ühiskonnaõpetus</option>
+            <option value="10">Muusika </option>
+            <option value="11">Emakeel</option>
+            <option value="12">Võõrkeeled</option>
           </select>
         </div>
       </form>
