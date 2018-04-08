@@ -3,7 +3,6 @@
   <require from="css/skeleton.css"></require>
   <require from="css/fileContainer.css"></require>
   <require from="css/sidemenu.css"></require>
-
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -50,57 +49,59 @@
         <ul class="side-menu--list">
           <li>
             <a class="subset">Õppeained</a>
-            <a  href="#Matemaatika">Matemaatika</a>
-            <a  href="#Ajalugu">Ajalugu</a>
-            <a  href="#Bioloogia">Bioloogia</a>
-            <a  href="#Kirjandus">Kirjandus</a>
-            <a  href="#Füüsika">Füüsika</a>
-            <a  href="#Keemia">Keemia</a>
-            <a  href="#Geograafia">Geograafia</a>
-            <a  href="#Inimeseõpetus">Inimeseõpetus</a>
-            <a  href="#Ühiskonnaõpetus">Ühiskonnaõpetus</a>
-            <a  href="#Muusika">Muusika</a>
-            <a  href="#Emakeel">Emakeel</a>
-            <a  href="#Võõrkeeled">Võõrkeeled</a>
+            <a  click.trigger="selectedCategory(1)"> Matemaatika</a>
+            <a  click.trigger="selectedCategory(2)">Ajalugu</a>
+            <a  click.trigger="selectedCategory(3)">Bioloogia</a>
+            <a  click.trigger="selectedCategory(4)">Kirjandus</a>
+            <a  click.trigger="selectedCategory(5)">Füüsika</a>
+            <a  click.trigger="selectedCategory(6)">Keemia</a>
+            <a  click.trigger="selectedCategory(7)">Geograafia</a>
+            <a  click.trigger="selectedCategory(8)">Inimeseõpetus</a>
+            <a  click.trigger="selectedCategory(9)">Ühiskonnaõpetus</a>
+            <a  click.trigger="selectedCategory(10)">Muusika</a>
+            <a  click.trigger="selectedCategory(11)">Emakeel</a>
+            <a  click.trigger="selectedCategory(12)">Võõrkeeled</a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="container" style="left: 5%; right: 5%; padding-top: 0.7%; width: 100%; position: fixed; z-index: 1; background-color: rgba(255,255,255,0.5);">
+    <div class="container" style="left: 5%; right: 5%; padding-top: 0.7%; width: 100%; position: fixed; z-index: 1;
+    background-color: rgba(255,255,255,0.5); width: inherit">
 		<span style="float: left;">
-			<a class="button button-primary" click.delegate="constructor()">KODULEHT</a>
-			<a class="button button-primary" href="#">UUED</a>
+			<a class="button button-primary" click.trigger="main()">KODULEHT</a>
+			<a class="button button-primary" >UUED</a>
 			<a class="button button-primary" href="#">PARIMAD</a>
 			<a class="button button-primary" href="#">LEHEST</a>
-      <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
-              <label class="button fileContainer button-primary"> Lisage fail:
-                <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
-              </label>
-        <div>
-          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
-          <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
-              <select id="selectSubject" if.bind="selectedFiles.length > 0" required>
-                <option value="" disabled selected>Valige õppeaine</option>
-                <option value="Option 1">Matemaatika</option>
-                <option value="Option 2">Ajalugu</option>
-                <option value="Option 3">Bioloogia</option>
-                <option value="Option 4">Kirjandus</option>
-                <option value="Option 5">Füüsika</option>
-                <option value="Option 6">Keemia</option>
-                <option value="Option 7">Geograafia</option>
-                <option value="Option 8">Inimeseõpetus</option>
-                <option value="Option 9">Ühiskonnaõpetus</option>
-                <option value="Option 10">Muusika </option>
-                <option value="Option 11">Emakeel</option>
-                <option value="Option 12">Võõrkeeled</option>
-              </select>
-          </div>
-            </form>
+
 		</span>
     <span style="float: right;">
 			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
 			<a class="button" href="#">LOGI SISSE</a>
 		</span>
+      <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
+        <label class="button fileContainer button-primary"> Lisage fail:
+          <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+        </label>
+        <div>
+          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
+          <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
+          <select id="selectSubject" if.bind="selectedFiles.length > 0" required>
+            <option value="" disabled selected>Valige õppeaine</option>
+            <option value="Option 1">Matemaatika</option>
+            <option value="Option 2">Ajalugu</option>
+            <option value="Option 3">Bioloogia</option>
+            <option value="Option 4">Kirjandus</option>
+            <option value="Option 5">Füüsika</option>
+            <option value="Option 6">Keemia</option>
+            <option value="Option 7">Geograafia</option>
+            <option value="Option 8">Inimeseõpetus</option>
+            <option value="Option 9">Ühiskonnaõpetus</option>
+            <option value="Option 10">Muusika </option>
+            <option value="Option 11">Emakeel</option>
+            <option value="Option 12">Võõrkeeled</option>
+          </select>
+        </div>
+      </form>
     </div>
   </header>
   <div style="width: 100%; overflow: hidden;">

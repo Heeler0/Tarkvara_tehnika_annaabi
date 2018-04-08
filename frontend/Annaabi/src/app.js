@@ -12,14 +12,23 @@ export class app {
       });
   }
 
-  //selectedCategory(categoryID) {
-    //let client = new HttpClient();
-    //client.fetch()
-      //.then(response => response.json())
-  //.then(data => {
-      //this.data1 = data
-  //});
-  //}
+  main() {
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/getFileList")
+      .then(response => response.json())
+  .then(data => {
+      this.data1 = data
+  });
+  }
+
+  selectedCategory(categoryID) {
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/getFileList?categoryId=" + categoryID)
+      .then(response => response.json())
+      .then(data => {
+        this.data1 = data;
+      });
+  }
 
   convertToString(text) {
     return JSON.stringify(text);
