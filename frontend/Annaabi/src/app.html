@@ -75,8 +75,10 @@
 
 		</span>
     <span style="float: right;">
-			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
-			<a class="button" href="#">LOGI SISSE</a>
+      <form role="form" submit.delegate="searchByName()">
+        <input class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch" style="margin-right: 5px;" >
+        <button class="button" type="submit">Otsi</button>
+      </form>
 		</span>
       <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
         <label class="button fileContainer button-primary"> Lisage fail:
