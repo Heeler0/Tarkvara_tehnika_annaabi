@@ -2,6 +2,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 
 export class app {
   data1;
+  nameOfSearch = "";
 
   constructor() {
     let client = new HttpClient();
@@ -16,14 +17,25 @@ export class app {
     let client = new HttpClient();
     client.fetch("http://194.135.95.77:8080/api/getFileList")
       .then(response => response.json())
-  .then(data => {
+      .then(data => {
       this.data1 = data
-  });
+      });
   }
 
   selectedCategory(categoryID) {
     let client = new HttpClient();
     client.fetch("http://194.135.95.77:8080/api/getFileList?categoryId=" + categoryID)
+      .then(response => response.json())
+      .then(data => {
+        this.data1 = data;
+      });
+  }
+
+  searchByName() {
+    var ans = this.nameOfSearch;
+    console.log(ans);
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/getFileList?query=" + ans)
       .then(response => response.json())
       .then(data => {
         this.data1 = data;
@@ -62,7 +74,7 @@ export class app {
   getSize(obj) {
     var size = obj.fileSize;
     size = size / 1024;
-    size = Math.round(size)
+    size = Math.round(size);
     return size + "KB";
   }
 
