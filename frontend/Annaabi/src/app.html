@@ -80,14 +80,14 @@
         <button class="button" type="submit">Otsi</button>
       </form>
 		</span>
-      <form method="POST" enctype="multipart/form-data" action="">
+      <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
         <label class="button fileContainer button-primary"> Lisage fail:
           <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
         </label>
         <div>
           <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0" />
-          <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required value.bind="headerOfPostedFile">
-          <select id="selectSubject" value.bind="selectCategory" if.bind="selectedFiles.length > 0" required>
+          <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
+          <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
             <option value="" disabled selected>Valige õppeaine</option>
             <option value="1" >Matemaatika</option>
             <option value="2">Ajalugu</option>
@@ -116,7 +116,7 @@
              repeat.for="item of data1">
           <div>
             <h3>
-              ${getFileName(item)}
+              ${header(item)}
             </h3>
           </div>
           <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px;">

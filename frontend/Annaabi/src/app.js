@@ -3,14 +3,6 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 export class app {
   data1;
   nameOfSearch = "";
-  selectCategory;
-  headerOfPostedFile;
-  URL;
-
-  uploadURL () {
-    console.log(1);
-    this.URL = "http://194.135.95.77:8080/api/uploadFile?title=" + this.headerOfPostedFile + "&categoryId=" + this.selectCategory;
-  }
 
   constructor() {
     let client = new HttpClient();
@@ -47,6 +39,14 @@ export class app {
       .then(data => {
         this.data1 = data;
       });
+  }
+  
+  setUploadUrl() {
+	  var title = document.getElementById("uploadFileTitle").value;
+	  var categoryId = document.getElementById("uploadFileCategoryId").value;
+	  document.getElementById("fileUploadForm").action = "http://194.135.95.77:8080/api/uploadFile?title=" + title + "&categoryId=" + categoryId;
+	  alert("hehe");
+	  return true;
   }
 
   convertToString(text) {
@@ -89,5 +89,10 @@ export class app {
     var url = "http://194.135.95.77:8080/api/getFile/";
     url += obj.fileName;
     return url;
+  }
+
+  header(obj) {
+    var header = obj.title;
+    return header
   }
 }
