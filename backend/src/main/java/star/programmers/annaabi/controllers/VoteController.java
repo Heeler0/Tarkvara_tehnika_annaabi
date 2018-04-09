@@ -47,7 +47,7 @@ public class VoteController
         return "Vote successful!";
     }
 
-    public boolean isValidScore(Integer score)
+    public static boolean isValidScore(Integer score)
     {
         return score == -1 || score == 0 || score == 1;
     }
