@@ -178,11 +178,17 @@ export class app {
     var formData = new FormData();
     formData.append('name', this.userName);
     formData.append('password', this.password);
-
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/login", {
+      method: "Post",
+      body: formData
+    })
+      .then(response => response.text())
+      .then(body => {this.sessionID = body;});
+    console.log(this.sessionID);
   }
 
   logout() {
-
   }
 
   castVote(id, vote) {
