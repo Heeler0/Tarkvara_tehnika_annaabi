@@ -134,7 +134,7 @@
         <div class="hide3">
           <div class="inner3">
             <div id="register">
-              <form class="form" method="post" submit.bind="createUser()">
+              <form class="form" method="post" submit.delegate="createUser()">
                 <input type="email" value.bind="createEmail" placeholder="Email" required />
                 <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required />
                 <input type="password" value.bind="createPassword" placeholder="Parool" required />
