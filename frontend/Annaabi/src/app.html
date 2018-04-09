@@ -37,13 +37,10 @@
   <header style="border-bottom: solid 1px #d8d8d8;">
     <!--   MENU STRUCTURE-->
 
-    <!--    Label is linked to the hidden checkbox-->
     <label for="menu-button" class="menu-button--label">&#9776;</label>
 
-    <!--    Checkbox state controls the menu position. When it is checked the menu slides in-->
     <input type="checkbox" id="menu-button">
 
-    <!--    .menu-wrap is a wrapper for all the menu structure for the easier traversing-->
     <div class="menu-wrap" >
       <div class="side-menu" style="z-index: 10;">
         <ul class="side-menu--list">
@@ -80,6 +77,8 @@
         <button class="button" type="submit">Otsi</button>
       </form>
 		</span>
+      <!-- File uploads happen here -->
+
       <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
         <label class="button fileContainer button-primary"> Lisage fail:
           <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
@@ -108,7 +107,9 @@
 
       <div style=" width: 80%;
     padding: 10px;">
-      <div class="ex3" style="width: 15%;
+        <!-- Users login here -->
+
+        <div class="ex3" style="width: 15%;
     float: left;" >
         <label class="button button-primary" for="login2">Login</label>
         <input style="opacity: 0" type="checkbox" name="one" id="login2" checked>
@@ -128,7 +129,9 @@
           </div>
         </div>
       </div>
-      <div class="ex3" style="margin-left: 15%;">
+        <!-- Users are registered here -->
+
+        <div class="ex3" style="margin-left: 15%;">
         <label class="button button-primary" for="register2">Registreeri</label>
         <input style="opacity: 0" type="checkbox" name="one" id="register2" checked>
         <div class="hide3">
