@@ -35,7 +35,7 @@ public class VoteController
         if (!isValidScore(score))
             return "Invalid score.";
 
-        List<Vote> existingVoteList = voteRepository.findByFileIdAndAccountId(fileId, 58L);
+        List<Vote> existingVoteList = voteRepository.findByFileIdAndAccountId(fileId, account.getId());
 
         if (existingVoteList.size() == 1)
         {
