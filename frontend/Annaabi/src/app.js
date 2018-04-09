@@ -185,10 +185,11 @@ export class app {
     })
       .then(response => response.text())
       .then(body => {
-		  this.sessionID = body;
-		  
-		  if (this.sessionID.length != 16) {
-			  alert('Wrong password');
+		  if (body.length != 16) {
+			  alert(body);
+		  }
+		  else {
+			  this.sessionID = body;
 		  }
 		  
 		  console.log(this.sessionID);
