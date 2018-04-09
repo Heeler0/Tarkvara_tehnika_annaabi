@@ -8,8 +8,8 @@ export class app {
   createEmail;
 
   sessionID;
-  UserName;
-  Password;
+  userName;
+  password;
 
   constructor() {
     let client = new HttpClient();
@@ -154,7 +154,10 @@ export class app {
     httpClient.fetch("http://194.135.95.77:8080/api/registerAccount", {
       method: "POST",
       body:  formData
-    })
+    });
+    this.createUserName = "";
+    this.createPassword = "";
+    this.createEmail = "";
   }
 
   getVote(obj) {
@@ -166,9 +169,18 @@ export class app {
   }
 
   login() {
+    var formData = new FormData();
+    formData.append('name', this.userName);
+    formData.append('password', this.password);
+
   }
 
   logout() {
 
+  }
+
+  castVote(id, vote) {
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/vote?fileId=" + id + "&score=" + vote)
   }
 }
