@@ -4,12 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import star.programmers.annaabi.database.Upload;
-import star.programmers.annaabi.database.UploadRepository;
-import star.programmers.annaabi.database.Vote;
-import star.programmers.annaabi.database.VoteRepository;
+import star.programmers.annaabi.database.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class FileListController
@@ -18,6 +16,8 @@ public class FileListController
     UploadRepository uploadRepository;
     @Autowired
     VoteRepository voteRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @CrossOrigin
     @RequestMapping(value = "/api/getFileList", method = RequestMethod.GET)
@@ -34,11 +34,11 @@ public class FileListController
 
             if (query != null && categoryId != null)
             {
-                uploads = uploadRepository.findByFileNameContainingIgnoreCaseAndCategoryIdOrderByIdDesc(query, categoryId);
+                uploads = uploadRepository.findByTitleContainingIgnoreCaseAndCategoryIdOrderByIdDesc(query, categoryId);
             }
             else if (query != null)
             {
-                uploads = uploadRepository.findByFileNameContainingIgnoreCaseOrderByIdDesc(query);
+                uploads = uploadRepository.findByTitleContainingIgnoreCaseOrderByIdDesc(query);
             }
             else if (categoryId != null)
             {
@@ -49,7 +49,7 @@ public class FileListController
                 uploads = uploadRepository.findAllByOrderByIdDesc();
             }
 
-            // fetch vote counts for every upload
+            // fetch vote counts for every upload and update category
             for (Upload upload : uploads)
             {
                 Long voteCount = voteRepository.findSumOfScore(upload.getId());
@@ -57,6 +57,17 @@ public class FileListController
                 if (voteCount != null)
                 {
                     upload.setVoteCount(voteCount);
+                }
+
+                Long uploadCategoryId = upload.getCategoryId();
+                if (uploadCategoryId != null)
+                {
+                    Optional<Category> category = categoryRepository.findById(upload.getCategoryId());
+
+                    if (category.isPresent())
+                    {
+                        upload.setCategoryName(category.get().getName());
+                    }
                 }
             }
 
