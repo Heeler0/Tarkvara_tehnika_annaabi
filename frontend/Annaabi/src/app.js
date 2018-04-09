@@ -158,7 +158,11 @@ export class app {
   }
 
   getVote(obj) {
-    return obj.voteCount
+    return obj.voteCount;
+  }
+
+  getUploaderUserName(obj) {
+    return obj.uploaderName;
   }
 
   login() {
