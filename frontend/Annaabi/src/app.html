@@ -62,12 +62,12 @@
         </ul>
       </div>
     </div>
+
     <div class="container" style="left: 5%; right: 5%; padding-top: 0.7%; width: 100%; position: fixed; z-index: 1;
     background-color: rgba(255,255,255,1); width: inherit">
 		<span style="float: left;">
 			<a class="button button-primary" click.trigger="main()">KODULEHT</a>
 			<a class="button button-primary" click.trigger="logout()" show.bind="sessionID">Logi välja</a>
-
 		</span>
     <span style="float: right;">
       <form role="form" submit.delegate="searchByName()">
@@ -75,36 +75,9 @@
         <button class="button" type="submit">Otsi</button>
       </form>
 		</span>
-      <!-- File uploads happen here -->
 
-      <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
-        <label class="button fileContainer button-primary" show.bind="sessionID"> Lisage fail:
-          <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
-        </label>
-        <div>
-          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
-          <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
-          <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
-            <option value="" disabled selected>Valige õppeaine</option>
-            <option value="1">Matemaatika</option>
-            <option value="2">Ajalugu</option>
-            <option value="3">Bioloogia</option>
-            <option value="4">Kirjandus</option>
-            <option value="5">Füüsika</option>
-            <option value="6">Keemia</option>
-            <option value="7">Geograafia</option>
-            <option value="8">Inimeseõpetus</option>
-            <option value="9">Ühiskonnaõpetus</option>
-            <option value="10">Muusika </option>
-            <option value="11">Emakeel</option>
-            <option value="12">Võõrkeeled</option>
-          </select>
-        </div>
 
-      </form>
-
-      <div style=" width: 80%;
-    padding: 10px;">
+      <div style=" width: 80%;">
         <!-- Users login here -->
 
         <div class="ex3" style="width: 15%;
@@ -145,6 +118,33 @@
         </div>
       </div>
     </div>
+      <!-- File uploads happen here -->
+
+      <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
+        <label class="button fileContainer button-primary" show.bind="sessionID"> Lisage fail:
+          <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+        </label>
+        <div>
+          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
+          <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
+          <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
+            <option value="" disabled selected>Valige õppeaine</option>
+            <option value="1">Matemaatika</option>
+            <option value="2">Ajalugu</option>
+            <option value="3">Bioloogia</option>
+            <option value="4">Kirjandus</option>
+            <option value="5">Füüsika</option>
+            <option value="6">Keemia</option>
+            <option value="7">Geograafia</option>
+            <option value="8">Inimeseõpetus</option>
+            <option value="9">Ühiskonnaõpetus</option>
+            <option value="10">Muusika </option>
+            <option value="11">Emakeel</option>
+            <option value="12">Võõrkeeled</option>
+          </select>
+        </div>
+
+      </form>
     </div>
 
   </header>
