@@ -40,14 +40,6 @@ export class app {
         this.data1 = data;
       });
   }
-  
-  setUploadUrl() {
-	  var title = document.getElementById("uploadFileTitle").value;
-	  var categoryId = document.getElementById("uploadFileCategoryId").value;
-	  document.getElementById("fileUploadForm").action = "http://194.135.95.77:8080/api/uploadFile?title=" + title + "&categoryId=" + categoryId;
-	  alert("hehe");
-	  return true;
-  }
 
   convertToString(text) {
     return JSON.stringify(text);
@@ -90,9 +82,34 @@ export class app {
     url += obj.fileName;
     return url;
   }
+  comments(fileId) {
+    let client = new HttpClient();
+    client.fetch("http://http://194.135.95.77:8080/api/getComments?fileId=" + fileId)
+      .then(response => response.json())
+      .then(data => {
+        this.data1 = data
+      });
+  }
+  
+  getComments(obj) {
+    var com = obj.id;
+    console.log(com);
+    return com;
+  }
 
-  header(obj) {
-    var header = obj.title;
-    return header
+  getFileID(obj) {
+    var id = obj.id;
+    return id;
+  }
+
+  setUploadUrl() {
+    var title = document.getElementById("uploadFileTitle").value;
+    var categoryId = document.getElementById("uploadFileCategoryId").value;
+    document.getElementById("fileUploadForm").action = "http://194.135.95.77:8080/api/uploadFile?title=" + title + "&categoryId=" + categoryId;
+    return true;
+  }
+
+  getHeader(obj) {
+    return obj.title;
   }
 }
