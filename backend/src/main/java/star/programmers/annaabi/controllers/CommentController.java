@@ -21,6 +21,9 @@ public class CommentController
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    AccountController accountController;
+
     @CrossOrigin
     @RequestMapping("/api/getComments")
     public String getComments(@RequestParam(value = "fileId") Long fileId)
@@ -53,14 +56,22 @@ public class CommentController
     @CrossOrigin
     @RequestMapping("/api/postComment")
     public String postComment(@RequestParam(value = "fileId") Long fileId,
-                              @RequestParam(value = "comment") String content)
+                              @RequestParam(value = "comment") String content,
+                              @RequestParam(value = "token") String token)
     {
+        Account account = accountController.getAccountFromToken(token);
+
+        if (account == null)
+        {
+            return "Invalid token.";
+        }
+
         // save new vote to database
         Comment comment = new Comment();
         comment.setFileId(fileId);
         comment.setComment(content);
         comment.setCommentDate(System.currentTimeMillis() / 1000);
-        comment.setAccountId(58L);
+        comment.setAccountId(account.getId());
         commentRepository.save(comment);
 
         return "Successfully commented!";

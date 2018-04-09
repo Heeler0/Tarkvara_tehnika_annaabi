@@ -141,4 +141,17 @@ public class AccountController
 
         return result.toString();
     }
+
+    public Account getAccountFromToken(String token)
+    {
+        List<Account> accountList = accountRepository.findByToken(token);
+
+        if (accountList.size() == 1)
+        {
+            Account account = accountList.get(0);
+            return account;
+        }
+
+        return null;
+    }
 }

@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import star.programmers.annaabi.database.Category;
-import star.programmers.annaabi.database.CategoryRepository;
-import star.programmers.annaabi.database.Vote;
-import star.programmers.annaabi.database.VoteRepository;
+import star.programmers.annaabi.database.*;
 
 import java.util.List;
 
@@ -20,10 +17,21 @@ public class VoteController
     @Autowired
     VoteRepository voteRepository;
 
+    @Autowired
+    AccountController accountController;
+
     @CrossOrigin
     @RequestMapping("/api/vote")
-    public String vote(@RequestParam(value = "fileId") Long fileId, @RequestParam(value = "score") Integer score)
+    public String vote(@RequestParam(value = "fileId") Long fileId, @RequestParam(value = "score") Integer score,
+                       @RequestParam(value = "token") String token)
     {
+        Account account = accountController.getAccountFromToken(token);
+
+        if (account == null)
+        {
+            return "Invalid token.";
+        }
+
         if (!isValidScore(score))
             return "Invalid score.";
 
@@ -39,7 +47,7 @@ public class VoteController
 
         // save new vote to database
         Vote vote = new Vote();
-        vote.setAccountId(58L);
+        vote.setAccountId(account.getId());
         vote.setFileId(fileId);
         vote.setScore(score);
         voteRepository.save(vote);

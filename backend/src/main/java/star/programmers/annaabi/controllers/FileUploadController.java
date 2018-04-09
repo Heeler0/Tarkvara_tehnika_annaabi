@@ -38,6 +38,9 @@ public class FileUploadController
     private AccountRepository accountRepository;
 
     @Autowired
+    AccountController accountController;
+
+    @Autowired
     public FileUploadController(StorageService storageService)
     {
         this.storageService = storageService;
@@ -63,7 +66,7 @@ public class FileUploadController
                                    @RequestParam(value = "categoryId") Long categoryId,
                                    @RequestParam(value = "token") String token)
     {
-        Account account = getAccountFromToken(token);
+        Account account = accountController.getAccountFromToken(token);
 
         if (account == null)
         {
@@ -109,19 +112,6 @@ public class FileUploadController
 
         redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:http://localhost:9000/";
-    }
-
-    public Account getAccountFromToken(String token)
-    {
-        List<Account> accountList = accountRepository.findByToken(token);
-
-        if (accountList.size() == 1)
-        {
-            Account account = accountList.get(0);
-            return account;
-        }
-
-        return null;
     }
 
     public String generateFileDescription(MultipartFile file)
