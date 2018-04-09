@@ -11,6 +11,8 @@ export class app {
   userName;
   password;
 
+  latestUrl;
+
   constructor() {
     let client = new HttpClient();
     client.fetch("http://194.135.95.77:8080/api/getFileList")
@@ -18,6 +20,7 @@ export class app {
       .then(data => {
         this.data1 = data
       });
+    this.latestUrl = "http://194.135.95.77:8080/api/getFileList";
   }
 
   main() {
@@ -27,6 +30,7 @@ export class app {
       .then(data => {
       this.data1 = data
       });
+    this.latestUrl = "http://194.135.95.77:8080/api/getFileList";
   }
 
   selectedCategory(categoryID) {
@@ -36,6 +40,7 @@ export class app {
       .then(data => {
         this.data1 = data;
       });
+    this.latestUrl = "http://194.135.95.77:8080/api/getFileList?categoryId=" + categoryID;
   }
 
   searchByName() {
@@ -46,6 +51,7 @@ export class app {
       .then(data => {
         this.data1 = data;
       });
+    this.latestUrl = "http://194.135.95.77:8080/api/getFileList?query=" + ans;
   }
 
   convertToString(text) {
@@ -182,5 +188,16 @@ export class app {
   castVote(id, vote) {
     let client = new HttpClient();
     client.fetch("http://194.135.95.77:8080/api/vote?fileId=" + id + "&score=" + vote)
+    this.updateData()
   }
+
+  updateData() {
+    let client = new HttpClient();
+    client.fetch(this.latestUrl)
+      .then(response => response.json())
+      .then(data => {
+        this.data1 = data;
+      });
+  }
+
 }
