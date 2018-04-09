@@ -145,6 +145,7 @@ export class app {
   }
 
   createUser() {
+    let httpClient = new HttpClient();
     httpClient.fetch("http://194.135.95.77:8080/api/registerAccount", {
       method: "POST",
       body:  "name=" + this.createUserName + "&password=" + this.createPassword + "&email=" + this.createEmail
