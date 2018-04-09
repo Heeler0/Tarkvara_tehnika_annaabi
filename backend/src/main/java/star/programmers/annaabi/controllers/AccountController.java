@@ -106,19 +106,19 @@ public class AccountController
         return "Invalid username and/or password.";
     }
 
-    public boolean isValidName(String name)
+    public static boolean isValidName(String name)
     {
-        return !name.isEmpty();
+        return name != null && !name.isEmpty();
     }
 
-    public boolean isValidPassword(String password)
+    public static boolean isValidPassword(String password)
     {
-        return !password.isEmpty();
+        return password != null && !password.isEmpty();
     }
 
-    public boolean isValidEmail(String email)
+    public static boolean isValidEmail(String email)
     {
-        return !email.isEmpty();
+        return email != null && !email.isEmpty();
     }
 
     public static String hashPassword(String password) throws Exception {
