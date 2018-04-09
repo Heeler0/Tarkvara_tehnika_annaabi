@@ -116,10 +116,9 @@
         <div class="hide3">
           <div class="inner3">
             <div id="login">
-              <form class="form" >
-                <p onclick="${getRegisterScreen()}" ></p>
-                <input type="text" placeholder="Kasutajanimi" required />
-                <input type="password" placeholder="Parool" required />
+              <form class="form" submit.delegate="login()">
+                <input type="text" value.bind="userName" placeholder="Kasutajanimi" required />
+                <input type="password" value.bind="password" placeholder="Parool" required />
                 <label class="checkbox" for="mäletamind">
                   <input type="checkbox" /> Mäleta mind
                 </label> <br />
