@@ -153,18 +153,16 @@
             ${convertDate(getDate(item))}
           </div>
           <div class="ex3" style="margin-top: 1%; margin-left: 1%;">
-            <label class="button" for="${getFileID(item)}">Kommentaarid</label>
+            <label class="button" for="${getFileID(item)}" click.trigger="comments(getFileID(item))">Kommentaarid</label>
             <input style="opacity: 0" type="checkbox" name="one" id="${getFileID(item)}" checked>
             <div class="hide3">
+              <div id="comments${getFileID(item)}">
+				<!-- Comments are inserted here -->
+              </div>
               <div class="inner3">
-                ${comments(getFileID(item))}
-                <div repeat.for="item1 of commentData">
-                <p>Mida</p>
-                </div>
-                <form action="" method="post">
-                  <textarea rows="1" cols="110" name="body" placeholder="Kommenteeri...."></textarea><br/>
-                  <input type="submit" value="Lisa">
-                </form>
+                  <textarea rows="1" cols="110" name="comment" placeholder="Kommenteeri...." id="commentArea${getFileID(item)}"></textarea><br/>
+				  <input type="hidden" value="${getFileID(item)}" name="fileId">
+                  <input type="submit" value="Lisa" click.trigger="postComment(getFileID(item))">
               </div>
             </div>
           </div>

@@ -82,13 +82,37 @@ export class app {
     url += obj.fileName;
     return url;
   }
+  
+  postComment(fileId) {
+	var comment = document.getElementById("commentArea"+fileId).value;
+	var postUrl = "http://194.135.95.77:8080/api/postComment?fileId=" + fileId + "&comment=" + comment;
+	
+	let client = new HttpClient();
+	client.fetch(postUrl);
+	
+	this.comments(fileId);
+	this.comments(fileId);
+  }
+
   comments(fileId) {
     let client = new HttpClient();
-    client.fetch("http://http://194.135.95.77:8080/api/getComments?fileId=" + fileId)
+    client.fetch("http://194.135.95.77:8080/api/getComments?fileId=" + fileId)
       .then(response => response.json())
       .then(data => {
-        this.data1 = data
+		var commentsHtml = "";
+		
+		for (var i = 0; i < data.length; i++){
+			var commentObject = data[i];
+			var commentContent = commentObject["comment"];
+			
+			var commentHtml = commentContent + "<br><hr>"; // comment html
+			commentsHtml += commentHtml;
+		}
+		
+		document.getElementById("comments"+fileId).innerHTML = commentsHtml;
       });
+	  
+	  return true;
   }
   
   getComments(obj) {
@@ -113,3 +137,4 @@ export class app {
     return obj.title;
   }
 
+}
