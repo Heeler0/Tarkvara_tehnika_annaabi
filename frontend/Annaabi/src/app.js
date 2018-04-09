@@ -184,8 +184,15 @@ export class app {
       body: formData
     })
       .then(response => response.text())
-      .then(body => {this.sessionID = body;});
-    console.log(this.sessionID);
+      .then(body => {
+		  this.sessionID = body;
+		  
+		  if (this.sessionID.length != 16) {
+			  alert('Wrong password');
+		  }
+		  
+		  console.log(this.sessionID);
+	});
   }
 
   logout() {
