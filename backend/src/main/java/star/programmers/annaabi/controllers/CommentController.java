@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 import star.programmers.annaabi.database.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CommentController
 {
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
 
     @CrossOrigin
     @RequestMapping("/api/getComments")
@@ -26,6 +30,16 @@ public class CommentController
         {
             // get all rows from the category table
             List<Comment> comments = commentRepository.findByFileIdOrderById(fileId);
+
+            for (Comment comment : comments)
+            {
+                Optional<Account> account = accountRepository.findById(comment.getAccountId());
+
+                if (account.isPresent())
+                {
+                    comment.setAuthorName(account.get().getName());
+                }
+            }
 
             // serialize data in json format for javascript to parse
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(comments);

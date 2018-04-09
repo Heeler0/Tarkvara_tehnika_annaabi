@@ -1,9 +1,6 @@
 package star.programmers.annaabi.database;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Comment
@@ -15,6 +12,8 @@ public class Comment
     private String comment;
     private Long fileId;
     private Long commentDate;
+    @Transient
+    private String authorName;
 
 
     public Long getId()
@@ -65,5 +64,15 @@ public class Comment
     public void setCommentDate(Long commentDate)
     {
         this.commentDate = commentDate;
+    }
+
+    public String getAuthorName()
+    {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName)
+    {
+        this.authorName = authorName;
     }
 }
