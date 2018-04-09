@@ -152,6 +152,10 @@ export class app {
     })
   }
 
+  getVote(obj) {
+    return obj.voteCount
+  }
+
   login() {
   }
 
