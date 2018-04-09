@@ -18,6 +18,8 @@ public class FileListController
     VoteRepository voteRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    AccountRepository accountRepository;
 
     @CrossOrigin
     @RequestMapping(value = "/api/getFileList", method = RequestMethod.GET)
@@ -62,11 +64,22 @@ public class FileListController
                 Long uploadCategoryId = upload.getCategoryId();
                 if (uploadCategoryId != null)
                 {
-                    Optional<Category> category = categoryRepository.findById(upload.getCategoryId());
+                    Optional<Category> category = categoryRepository.findById(uploadCategoryId);
 
                     if (category.isPresent())
                     {
                         upload.setCategoryName(category.get().getName());
+                    }
+                }
+
+                Long uploaderId = upload.getUploaderId();
+                if (uploaderId != null)
+                {
+                    Optional<Account> account = accountRepository.findById(uploaderId);
+
+                    if (account.isPresent())
+                    {
+                        upload.setUploaderName(account.get().getName());
                     }
                 }
             }

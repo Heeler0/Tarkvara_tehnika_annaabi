@@ -23,6 +23,8 @@ public class Upload
     private Long voteCount = 0L;
     @Transient
     private String categoryName;
+    @Transient
+    private String uploaderName;
 
     public String getFileName()
     {
@@ -122,5 +124,15 @@ public class Upload
     public void setCategoryName(String categoryName)
     {
         this.categoryName = categoryName;
+    }
+
+    public String getUploaderName()
+    {
+        return uploaderName;
+    }
+
+    public void setUploaderName(String uploaderName)
+    {
+        this.uploaderName = uploaderName;
     }
 }

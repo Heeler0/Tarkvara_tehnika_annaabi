@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.HtmlUtils;
+import star.programmers.annaabi.database.Account;
+import star.programmers.annaabi.database.AccountRepository;
 import star.programmers.annaabi.database.Upload;
 import star.programmers.annaabi.database.UploadRepository;
 import star.programmers.annaabi.storage.StorageService;
 import star.programmers.annaabi.storage.exceptions.StorageFileNotFoundException;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 // Based on: https://spring.io/guides/gs/uploading-files/
@@ -30,6 +33,9 @@ public class FileUploadController
 
     @Autowired
     private UploadRepository uploadRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     public FileUploadController(StorageService storageService)
@@ -54,8 +60,17 @@ public class FileUploadController
     @RequestMapping(value = "/api/uploadFile", method = { RequestMethod.GET, RequestMethod.POST })
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
                                    @RequestParam(value = "title") String title,
-                                   @RequestParam(value = "categoryId") Long categoryId)
+                                   @RequestParam(value = "categoryId") Long categoryId,
+                                   @RequestParam(value = "token") String token)
     {
+        Account account = getAccountFromToken(token);
+
+        if (account == null)
+        {
+            System.out.println("File: " + file.getOriginalFilename() + " tried to be uploaded from an invalid account");
+            return "";
+        }
+
         if (!isValidTitle(title))
         {
             System.out.println("File: " + file.getOriginalFilename() + " has invalid title");
@@ -88,11 +103,25 @@ public class FileUploadController
         upload.setFileDescription(description);
         upload.setUploadDate(System.currentTimeMillis() / 1000);
         upload.setCategoryId(categoryId);
+        upload.setUploaderId(account.getId());
         uploadRepository.save(upload);
         System.out.println("Saved file: " + upload.getFileName());
 
         redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:http://localhost:9000/";
+    }
+
+    public Account getAccountFromToken(String token)
+    {
+        List<Account> accountList = accountRepository.findByToken(token);
+
+        if (accountList.size() == 1)
+        {
+            Account account = accountList.get(0);
+            return account;
+        }
+
+        return null;
     }
 
     public String generateFileDescription(MultipartFile file)
