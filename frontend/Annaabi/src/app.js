@@ -145,10 +145,15 @@ export class app {
   }
 
   createUser() {
+	var formData = new FormData();
+	formData.append('name', this.createUserName);
+	formData.append('password', this.createPassword);
+	formData.append('email', this.createEmail);
+	
     let httpClient = new HttpClient();
     httpClient.fetch("http://194.135.95.77:8080/api/registerAccount", {
       method: "POST",
-      body:  "name=" + this.createUserName + "&password=" + this.createPassword + "&email=" + this.createEmail
+      body:  formData
     })
   }
 
