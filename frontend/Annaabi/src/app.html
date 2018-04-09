@@ -66,9 +66,7 @@
     background-color: rgba(255,255,255,1); width: inherit">
 		<span style="float: left;">
 			<a class="button button-primary" click.trigger="main()">KODULEHT</a>
-			<a class="button button-primary" >UUED</a>
-			<a class="button button-primary" href="#">PARIMAD</a>
-			<a class="button button-primary" href="#">LEHEST</a>
+			<a class="button button-primary" click.trigger="logout()" show.bind="sessionID">Logi välja</a>
 
 		</span>
     <span style="float: right;">
@@ -80,7 +78,7 @@
       <!-- File uploads happen here -->
 
       <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
-        <label class="button fileContainer button-primary"> Lisage fail:
+        <label class="button fileContainer button-primary" show.bind="sessionID"> Lisage fail:
           <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
         </label>
         <div>
@@ -110,7 +108,7 @@
         <!-- Users login here -->
 
         <div class="ex3" style="width: 15%;
-    float: left;" >
+    float: left;" show.bind="!sessionID" >
         <label class="button button-primary" for="login2">Login</label>
         <input style="opacity: 0" type="checkbox" name="one" id="login2" checked>
         <div class="hide3">
@@ -130,7 +128,7 @@
       </div>
         <!-- Users are registered here -->
 
-        <div class="ex3" style="margin-left: 15%;">
+        <div class="ex3" style="margin-left: 15%;" show.bind="!sessionID">
         <label class="button button-primary" for="register2">Registreeri</label>
         <input style="opacity: 0" type="checkbox" name="one" id="register2" checked>
         <div class="hide3">
@@ -182,19 +180,19 @@
               <div id="comments${getFileID(item)}">
 				<!-- Comments are inserted here -->
               </div>
-              <div class="inner3">
+              <div class="inner3" show.bind="sessionID">
                   <textarea rows="1" cols="110" name="comment" placeholder="Kommenteeri...." id="commentArea${getFileID(item)}"></textarea><br/>
 				  <input type="hidden" value="${getFileID(item)}" name="fileId">
                   <input type="submit" value="Lisa" click.trigger="postComment(getFileID(item))">
               </div>
             </div>
           </div>
-          <div >
+          <div show.bind="sessionID">
             <a href="#" click.trigger="castVote(getFileID(item), 1)">
               <span class="top"></span>
             </a>
           </div>
-          <div>
+          <div show.bind="sessionID">
             <a href="#" click.trigger="castVote(getFileID(item), -1)">
               <span class="bottom"></span>
             </a>

@@ -21,6 +21,8 @@ export class app {
         this.data1 = data
       });
     this.latestUrl = "http://194.135.95.77:8080/api/getFileList";
+	
+	this.sessionID = document.cookie;
   }
 
   main() {
@@ -98,7 +100,7 @@ export class app {
   
   postComment(fileId) {
 	var comment = document.getElementById("commentArea"+fileId).value;
-	var postUrl = "http://194.135.95.77:8080/api/postComment?fileId=" + fileId + "&comment=" + comment;
+	var postUrl = "http://194.135.95.77:8080/api/postComment?fileId=" + fileId + "&comment=" + comment + "&token=" + this.sessionID;
 	
 	let client = new HttpClient();
 	client.fetch(postUrl);
@@ -142,7 +144,7 @@ export class app {
   setUploadUrl() {
     var title = document.getElementById("uploadFileTitle").value;
     var categoryId = document.getElementById("uploadFileCategoryId").value;
-    document.getElementById("fileUploadForm").action = "http://194.135.95.77:8080/api/uploadFile?title=" + title + "&categoryId=" + categoryId;
+    document.getElementById("fileUploadForm").action = "http://194.135.95.77:8080/api/uploadFile?title=" + title + "&categoryId=" + categoryId + "&token=" + this.sessionID;
     return true;
   }
 
@@ -190,19 +192,25 @@ export class app {
 		  }
 		  else {
 			  this.sessionID = body;
+			  document.cookie = this.sessionID;
 		  }
 		  
+		  this.userName = "";
+		  this.password = "";
 		  console.log(this.sessionID);
 	});
   }
 
   logout() {
+	  this.sessionID = "";
+	  document.cookie = "";
   }
 
   castVote(id, vote) {
     let client = new HttpClient();
-    client.fetch("http://194.135.95.77:8080/api/vote?fileId=" + id + "&score=" + vote)
-    this.updateData()
+    client.fetch("http://194.135.95.77:8080/api/vote?fileId=" + id + "&score=" + vote + "&token=" + this.sessionID);
+    this.updateData();
+    this.updateData();
   }
 
   updateData() {
