@@ -3,6 +3,13 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 export class app {
   data1;
   nameOfSearch = "";
+  createUserName;
+  createPassword;
+  createEmail;
+
+  sessionID;
+  UserName;
+  Password;
 
   constructor() {
     let client = new HttpClient();
@@ -137,4 +144,17 @@ export class app {
     return obj.title;
   }
 
+  createUser() {
+    httpClient.fetch("http://194.135.95.77:8080/api/registerAccount", {
+      method: "POST",
+      body:  "name=" + this.createUserName + "&password=" + this.createPassword + "&email=" + this.createEmail
+    })
+  }
+
+  login() {
+  }
+
+  logout() {
+
+  }
 }
