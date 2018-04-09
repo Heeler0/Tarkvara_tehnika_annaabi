@@ -105,25 +105,46 @@
         </div>
 
       </form>
-      <div class="ex3" >
+
+      <div style=" width: 80%;
+    padding: 10px;">
+      <div class="ex3" style="width: 15%;
+    float: left;" >
         <label class="button button-primary" for="login2">Login</label>
         <input style="opacity: 0" type="checkbox" name="one" id="login2" checked>
         <div class="hide3">
           <div class="inner3">
             <div id="login">
-              <form class="form">
+              <form class="form" >
                 <p onclick="${getRegisterScreen()}" ></p>
-                <input type="text" placeholder="Kasutajanimi" />
-                <input type="password" placeholder="Parool" />
+                <input type="text" placeholder="Kasutajanimi" required />
+                <input type="password" placeholder="Parool" required />
                 <label class="checkbox" for="mäletamind">
                   <input type="checkbox" /> Mäleta mind
                 </label> <br />
-                <input class="button" type="submit" value="Login" /> või <a class="button">Loo kasutaja</a>
+                <input class="button" type="submit" value="Login" />
               </form>
             </div>
           </div>
         </div>
       </div>
+      <div class="ex3" style="margin-left: 15%;">
+        <label class="button button-primary" for="register2">Registreeri</label>
+        <input style="opacity: 0" type="checkbox" name="one" id="register2" checked>
+        <div class="hide3">
+          <div class="inner3">
+            <div id="register">
+              <form class="form" method="post" submit.bind="createUser()">
+                <input type="email" value.bind="createEmail" placeholder="Email" required />
+                <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required />
+                <input type="password" value.bind="createPassword" placeholder="Parool" required />
+                <input class="button" type="submit" value="Loo kasutaja" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 
   </header>
