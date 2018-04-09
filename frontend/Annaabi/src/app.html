@@ -6,7 +6,6 @@
   <!DOCTYPE html>
   <html lang="en">
   <head>
-
     <!-- Basic Page Needs
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8">
@@ -75,32 +74,35 @@
 
 		</span>
     <span style="float: right;">
-			<input class="u-pull-left" type="email" placeholder="Otsi..." id="search" style="margin-right: 5px;">
-			<a class="button" href="#">LOGI SISSE</a>
+      <form role="form" submit.delegate="searchByName()">
+        <input class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch" style="margin-right: 5px;" >
+        <button class="button" type="submit">Otsi</button>
+      </form>
 		</span>
-      <form method="POST" enctype="multipart/form-data" action="http://194.135.95.77:8080/api/uploadFile">
+      <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
         <label class="button fileContainer button-primary"> Lisage fail:
           <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
         </label>
         <div>
           <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
-          <input type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
-          <select id="selectSubject" if.bind="selectedFiles.length > 0" required>
+          <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
+          <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
             <option value="" disabled selected>Valige õppeaine</option>
-            <option value="Option 1">Matemaatika</option>
-            <option value="Option 2">Ajalugu</option>
-            <option value="Option 3">Bioloogia</option>
-            <option value="Option 4">Kirjandus</option>
-            <option value="Option 5">Füüsika</option>
-            <option value="Option 6">Keemia</option>
-            <option value="Option 7">Geograafia</option>
-            <option value="Option 8">Inimeseõpetus</option>
-            <option value="Option 9">Ühiskonnaõpetus</option>
-            <option value="Option 10">Muusika </option>
-            <option value="Option 11">Emakeel</option>
-            <option value="Option 12">Võõrkeeled</option>
+            <option value="1">Matemaatika</option>
+            <option value="2">Ajalugu</option>
+            <option value="3">Bioloogia</option>
+            <option value="4">Kirjandus</option>
+            <option value="5">Füüsika</option>
+            <option value="6">Keemia</option>
+            <option value="7">Geograafia</option>
+            <option value="8">Inimeseõpetus</option>
+            <option value="9">Ühiskonnaõpetus</option>
+            <option value="10">Muusika </option>
+            <option value="11">Emakeel</option>
+            <option value="12">Võõrkeeled</option>
           </select>
         </div>
+
       </form>
     </div>
   </header>
@@ -128,6 +130,18 @@
           </div>
           <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;">Uploaded by Anonymous on
             ${convertDate(getDate(item))}
+          </div>
+          <div id="${getFileName(item)}" class="ex3">
+            <label class="button" for="item-3">Kommentaarid</label>
+            <input style="opacity: 0" type="checkbox" name="one" id="item-3" checked>
+            <div class="hide3">
+              <div class="inner3">
+                <form action="" method="post">
+                  <textarea rows="1" cols="110" name="body" placeholder="Kommenteeri...."></textarea><br/>
+                  <input type="submit" value="Lisa">
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
