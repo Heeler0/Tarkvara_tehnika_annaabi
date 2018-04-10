@@ -181,9 +181,12 @@
 				<!-- Comments are inserted here -->
               </div>
               <div class="inner3" show.bind="sessionID">
-                  <textarea rows="1" cols="110" name="comment" placeholder="Kommenteeri...." id="commentArea${getFileID(item)}"></textarea><br/>
+                <form>
+                  <textarea rows="1" cols="110" name="comment"
+                            placeholder="Kommenteeri...." id="commentArea${getFileID(item)}"></textarea><br/>
 				  <input type="hidden" value="${getFileID(item)}" name="fileId">
-                  <input type="submit" value="Lisa" click.trigger="postComment(getFileID(item))">
+                  <input type="submit" value="Lisa" click.trigger="postComment(getFileID(item))" id="submit${getFileID(item)}">
+                </form>
               </div>
             </div>
           </div>

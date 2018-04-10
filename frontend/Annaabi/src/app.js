@@ -101,12 +101,17 @@ export class app {
   postComment(fileId) {
 	var comment = document.getElementById("commentArea"+fileId).value;
 	var postUrl = "http://194.135.95.77:8080/api/postComment?fileId=" + fileId + "&comment=" + comment + "&token=" + this.sessionID;
-	
-	let client = new HttpClient();
-	client.fetch(postUrl);
-	
-	this.comments(fileId);
-	this.comments(fileId);
+    if (comment.length > 1) {
+      document.getElementById("submit" + fileId).removeAttribute("disabled");
+      let client = new HttpClient();
+      client.fetch(postUrl);
+
+      this.comments(fileId);
+      this.comments(fileId);
+      document.getElementById("commentArea" + fileId).value = "";
+    } else {
+      alert("Kommentaar liiga lühike (min 2)")
+    }
   }
 
   comments(fileId) {
