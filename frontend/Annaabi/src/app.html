@@ -1,12 +1,16 @@
 <template xmlns:font="http://www.w3.org/1999/xhtml">
   <require from="css/normalize.css"></require>
   <require from="css/skeleton.css"></require>
-  <require from="css/fileContainer.css"></require>
-  <require from="css/sidemenu.css"></require>
+  <require from="css/layout.css"></require>
+  <require from="css/base.css"></require>
+
 
   <!DOCTYPE html>
   <html lang="en">
   <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Basic Page Needs
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8">
@@ -35,176 +39,156 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
   <header style="border-bottom: solid 1px #d8d8d8;">
-    <!--   MENU STRUCTURE-->
+    <div class="band navigation"
+         style="background-color: #1EAEDB; position: fixed; width: 100%; z-index: 1; border-radius: 2px; height: 8%">
 
-    <label for="menu-button" class="menu-button--label">&#9776;</label>
+      <nav class="primary container">
 
-    <input type="checkbox" id="menu-button">
-
-    <div class="menu-wrap" >
-      <div class="side-menu" style="z-index: 10;">
-        <ul class="side-menu--list">
-          <li>
-            <a class="subset">Õppeained</a>
-            <a  click.trigger="selectedCategory(1)"> Matemaatika</a>
-            <a  click.trigger="selectedCategory(2)">Ajalugu</a>
-            <a  click.trigger="selectedCategory(3)">Bioloogia</a>
-            <a  click.trigger="selectedCategory(4)">Kirjandus</a>
-            <a  click.trigger="selectedCategory(5)">Füüsika</a>
-            <a  click.trigger="selectedCategory(6)">Keemia</a>
-            <a  click.trigger="selectedCategory(7)">Geograafia</a>
-            <a  click.trigger="selectedCategory(8)">Inimeseõpetus</a>
-            <a  click.trigger="selectedCategory(9)">Ühiskonnaõpetus</a>
-            <a  click.trigger="selectedCategory(10)">Muusika</a>
-            <a  click.trigger="selectedCategory(11)">Emakeel</a>
-            <a  click.trigger="selectedCategory(12)">Võõrkeeled</a>
+        <ul>
+          <li><a click.trigger="main()">KODULEHT</a></li>
+          <li><a>Õppeained</a>
+            <ul style="background-color: #1EAEDB; border-radius: 2px">
+              <li><a click.trigger="selectedCategory(1)"> Matemaatika</a></li>
+              <li><a click.trigger="selectedCategory(2)">Ajalugu</a></li>
+              <li><a click.trigger="selectedCategory(3)">Bioloogia</a></li>
+              <li><a click.trigger="selectedCategory(4)">Kirjandus</a></li>
+              <li><a click.trigger="selectedCategory(5)">Füüsika</a></li>
+              <li><a click.trigger="selectedCategory(6)">Keemia</a></li>
+              <li><a click.trigger="selectedCategory(7)">Geograafia</a></li>
+              <li><a click.trigger="selectedCategory(8)">Inimeseõpetus</a></li>
+              <li><a click.trigger="selectedCategory(9)">Ühiskonnaõpetus</a></li>
+              <li><a click.trigger="selectedCategory(10)">Muusika</a></li>
+              <li><a click.trigger="selectedCategory(11)">Emakeel</a></li>
+              <li><a click.trigger="selectedCategory(12)">Võõrkeeled</a></li>
+            </ul>
           </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="container" style="left: 5%; right: 5%; padding-top: 0.7%; width: 100%; position: fixed; z-index: 1;
-    background-color: rgba(255,255,255,1); width: inherit">
-		<span style="float: left;">
-			<a class="button button-primary" click.trigger="main()">KODULEHT</a>
-			<a class="button button-primary" click.trigger="logout()" show.bind="sessionID">Logi välja</a>
-		</span>
-    <span style="float: right;">
+          <li>
+            <a show.bind="!sessionID">Login</a>
+            <ul style="background-color: #1EAEDB; border-radius: 2px">
+                  <form class="form" submit.delegate="login()">
+                    <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
+                    <input type="password" value.bind="password" placeholder="Parool" required/>
+                    <br/>
+                    <input class="button" type="submit" value="Login"/>
+                  </form>
+            </ul>
+          </li>
+          <li><a click.trigger="logout()" show.bind="sessionID">Logi välja</a></li>
+          <li><a show.bind="!sessionID">Registreeri</a>
+            <ul style="background-color: #1EAEDB; border-radius: 2px">
+                <form class="form" method="post" submit.delegate="createUser()">
+                  <input type="email" value.bind="createEmail" placeholder="Email" required/>
+                  <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required/>
+                  <input type="password" value.bind="createPassword" placeholder="Parool" required/>
+                  <input class="button" type="submit" value="Loo kasutaja"/>
+                </form>
+            </ul>
+          </li>
+          <li><a show.bind="sessionID">Lisa fail</a>
+            <ul>
+                <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()"
+                      id="fileUploadForm">
+                    <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+                  <div>
+                    <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
+                    <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri'
+                           if.bind="selectedFiles.length > 0" required>
+                    <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
+                      <option value="" disabled selected>Valige õppeaine</option>
+                      <option value="1">Matemaatika</option>
+                      <option value="2">Ajalugu</option>
+                      <option value="3">Bioloogia</option>
+                      <option value="4">Kirjandus</option>
+                      <option value="5">Füüsika</option>
+                      <option value="6">Keemia</option>
+                      <option value="7">Geograafia</option>
+                      <option value="8">Inimeseõpetus</option>
+                      <option value="9">Ühiskonnaõpetus</option>
+                      <option value="10">Muusika</option>
+                      <option value="11">Emakeel</option>
+                      <option value="12">Võõrkeeled</option>
+                    </select>
+                  </div>
+                </form>
+            </ul>
+          </li>
+          <span style="float: right;">
       <form role="form" submit.delegate="searchByName()">
-        <input class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch" style="margin-right: 5px;" >
-        <button class="button" type="submit">Otsi</button>
+        <input class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
+               style="margin-right: 5px;">
       </form>
 		</span>
+        </ul>
 
 
-      <div style=" width: 80%;">
-        <!-- Users login here -->
-
-        <div class="ex3" style="width: 15%;
-    float: left;" show.bind="!sessionID" >
-        <label class="button button-primary" for="login2">Login</label>
-        <input style="opacity: 0" type="checkbox" name="one" id="login2" checked>
-        <div class="hide3">
-          <div class="inner3">
-            <div id="login">
-              <form class="form" submit.delegate="login()">
-                <input type="text" value.bind="userName" placeholder="Kasutajanimi" required />
-                <input type="password" value.bind="password" placeholder="Parool" required />
-                <label class="checkbox" for="mäletamind">
-                  <input type="checkbox" /> Mäleta mind
-                </label> <br />
-                <input class="button" type="submit" value="Login" />
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-        <!-- Users are registered here -->
-
-        <div class="ex3" style="margin-left: 15%;" show.bind="!sessionID">
-        <label class="button button-primary" for="register2">Registreeri</label>
-        <input style="opacity: 0" type="checkbox" name="one" id="register2" checked>
-        <div class="hide3">
-          <div class="inner3">
-            <div id="register">
-              <form class="form" method="post" submit.delegate="createUser()">
-                <input type="email" value.bind="createEmail" placeholder="Email" required />
-                <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required />
-                <input type="password" value.bind="createPassword" placeholder="Parool" required />
-                <input class="button" type="submit" value="Loo kasutaja" />
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      </nav>
     </div>
-      <!-- File uploads happen here -->
-
-      <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()" id="fileUploadForm">
-        <label class="button fileContainer button-primary" show.bind="sessionID"> Lisage fail:
-          <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
-        </label>
-        <div>
-          <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
-          <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri' if.bind="selectedFiles.length > 0" required>
-          <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
-            <option value="" disabled selected>Valige õppeaine</option>
-            <option value="1">Matemaatika</option>
-            <option value="2">Ajalugu</option>
-            <option value="3">Bioloogia</option>
-            <option value="4">Kirjandus</option>
-            <option value="5">Füüsika</option>
-            <option value="6">Keemia</option>
-            <option value="7">Geograafia</option>
-            <option value="8">Inimeseõpetus</option>
-            <option value="9">Ühiskonnaõpetus</option>
-            <option value="10">Muusika </option>
-            <option value="11">Emakeel</option>
-            <option value="12">Võõrkeeled</option>
-          </select>
-        </div>
-
-      </form>
-    </div>
-  <img src="https://openclipart.org/download/137251/OCAL-logo-Saffron.svg" style="width: 7%; height: 10%; margin-left: 90%">
+    <style>
+      input {
+        color: #181818;
+      }
+    </style>
   </header>
-  <div style="width: 100%; overflow: hidden;">
+  <div style="margin-top: 5%">
 
-  <div class="container" >
-    <div class="row">
-      <div class="twelve columns">
-        <div class="container"
-             style="background: #EEE; width: 100%; border-radius: 4px; margin-bottom: 1%; padding: 1%;"
-             repeat.for="item of data1">
-          <div>
-            <h3>
-              ${getHeader(item)}
-            </h3>
-          </div>
-          <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px;">
-            <p innerHTML.bind="getDesc(item)" style="padding-bottom: 0px;">
-            </p>
-          </div>
-          <div style="margin-top: 1%; margin-right: 1%; float: left;">
-            <a href="${download(item)}">
-              <button>Download - ${getSize(item)}</button>
-            </a>
-          </div>
-          <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;"> Uploaded by ${getUploaderUserName(item)} on
-            ${convertDate(getDate(item))}, Score: ${getVote(item)}
-          </div>
-          <div class="ex3" style="margin-top: 1%; margin-left: 1%;">
-            <label class="button" for="${getFileID(item)}" click.trigger="comments(getFileID(item))">Kommentaarid</label>
-            <input style="opacity: 0" type="checkbox" name="one" id="${getFileID(item)}" checked>
-            <div class="hide3">
-              <div id="comments${getFileID(item)}">
-				<!-- Comments are inserted here -->
-              </div>
-              <div class="inner3" show.bind="sessionID">
-                <form>
+    <div class="container">
+      <div class="row">
+        <div class="twelve columns">
+          <div class="container"
+               style="background: #EEE; width: 100%; border-radius: 4px; margin-bottom: 1%; padding: 1%;"
+               repeat.for="item of data1">
+            <div>
+              <h3>
+                ${getHeader(item)}
+              </h3>
+            </div>
+            <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px;">
+              <p innerHTML.bind="getDesc(item)" style="padding-bottom: 0px;">
+              </p>
+            </div>
+            <div style="margin-top: 1%; margin-right: 1%; float: left;">
+              <a href="${download(item)}">
+                <button>Download - ${getSize(item)}</button>
+              </a>
+            </div>
+            <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;"> Uploaded by
+              ${getUploaderUserName(item)} on
+              ${convertDate(getDate(item))}, Score: ${getVote(item)}
+            </div>
+            <div class="ex3" style="margin-top: 1%; margin-left: 1%;">
+              <label class="button" for="${getFileID(item)}"
+                     click.trigger="comments(getFileID(item))">Kommentaarid</label>
+              <input style="opacity: 0" type="checkbox" name="one" id="${getFileID(item)}" checked>
+              <div class="hide3">
+                <div id="comments${getFileID(item)}">
+                  <!-- Comments are inserted here -->
+                </div>
+                <div class="inner3" show.bind="sessionID">
+                  <form>
                   <textarea rows="1" cols="110" name="comment"
                             placeholder="Kommenteeri...." id="commentArea${getFileID(item)}"></textarea><br/>
-				  <input type="hidden" value="${getFileID(item)}" name="fileId">
-                  <input type="submit" value="Lisa" click.trigger="postComment(getFileID(item))" id="submit${getFileID(item)}">
-                </form>
+                    <input type="hidden" value="${getFileID(item)}" name="fileId">
+                    <input type="submit" value="Lisa" click.trigger="postComment(getFileID(item))"
+                           id="submit${getFileID(item)}">
+                  </form>
+                </div>
               </div>
             </div>
+            <div show.bind="sessionID">
+              <a href="#" click.trigger="castVote(getFileID(item), 1)">
+                <span class="button">a</span>
+              </a>
+            </div>
+            <div show.bind="sessionID">
+              <a href="#" click.trigger="castVote(getFileID(item), -1)">
+                <span class="button">b</span>
+              </a>
+            </div>
           </div>
-          <div show.bind="sessionID">
-            <a href="#" click.trigger="castVote(getFileID(item), 1)">
-              <span class="top"></span>
-            </a>
-          </div>
-          <div show.bind="sessionID">
-            <a href="#" click.trigger="castVote(getFileID(item), -1)">
-              <span class="bottom"></span>
-            </a>
-          </div>
-        </div>
 
+        </div>
       </div>
     </div>
-  </div>
   </div>
 
   <footer style="width: 100%; border-top: solid 1px #d8d8d8; margin-top: 0.7%">
@@ -212,7 +196,6 @@
       <p style="margin: 0px; padding: 0px;">Copyright &copy; 2018 Star Programmers</p>
     </div>
   </footer>
-
   <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   </body>

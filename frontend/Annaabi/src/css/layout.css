@@ -1,0 +1,372 @@
+/*
+* Skeleton V1.1
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 8/17/2011
+*/
+
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Site Styles
+================================================== */
+/*http://www.justbenicestudio.com/studio/websymbols/*/
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box; 
+	}
+
+img {
+	max-width: 100%;
+}
+
+.band {
+	padding: 0 0 14px 0;
+}
+
+.band.navigation {
+	padding: 0;
+}
+
+/*navigation*/
+nav.primary ul,
+nav.primary ul li {
+	margin: 0px;
+}
+
+nav.primary select {
+	display: none;
+	width:  100%;
+	height: 28px;
+	margin: 21px 0;
+}
+
+nav.primary ul li {
+	display: inline;
+	float: left;
+	position: relative;
+}
+
+nav.primary ul li a {
+	display: inline-block;
+	line-height: 49px;
+	padding:  0 14px;
+	color: #ebebeb;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: bold;
+	letter-spacing: 0.08em;
+}
+
+nav.primary ul li a:hover {
+	background: #0FA0CE;
+	cursor: pointer;
+}
+
+/*sub menu*/
+nav.primary ul ul {
+
+	position: absolute;
+	top:100%;
+	left: 0;
+	z-index: 999999;
+
+	height: 0px;
+	overflow: hidden;
+	
+	min-width: 100%;
+	
+	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);	
+}
+
+nav.primary ul li span {
+	display: none;
+}
+
+nav.primary ul li:hover ul {
+
+
+	height: auto;
+	overflow: auto;
+	
+	display: block;
+}
+
+nav.primary ul ul li {
+	float: none;
+	display: list-item;
+	border-bottom: 1px solid #383737;
+}
+
+nav.primary ul ul li a {
+	display: block;
+	line-height: 35px;
+	text-transform: none;
+	position: relative;
+	z-index: 999999;
+}
+
+nav.primary ul li:hover > a {
+	background: #0FA0CE;
+}
+	/*
+	 * jQuery FlexSlider v1.8
+	 * http://flex.madebymufffin.com
+	 *
+	 * Copyright 2011, Tyler Smith
+	 * Free to use under the MIT license.
+	 * http://www.opensource.org/licenses/mit-license.php
+	 */
+	 
+	/* Browser Resets */
+	.flex-container a:active,
+	.flexslider a:active {outline: none;}
+	.slides,
+	.flex-control-nav,
+	.flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
+	
+	/* FlexSlider Necessary Styles
+	*********************************/ 
+	.flexslider {width: 100%; margin: 0; padding: 0;}
+	.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+	.flexslider .slides img {max-width: 100%; display: block;}
+	.flex-pauseplay span {text-transform: capitalize;}
+	
+	/* Clearfix for the .slides element */
+	.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
+	html[xmlns] .slides {display: block;} 
+	* html .slides {height: 1%;}
+	
+	/* No JavaScript Fallback */
+	/* If you are not using another script, such as Modernizr, make sure you
+	 * include js that eliminates this class on page load */
+	.no-js .slides > li:first-child {display: block;}
+	
+	/*my flexslider styles*/	
+	.flexslider {
+		margin: 21px 0;
+	}
+	
+	.flex-control-nav {
+		width: 100%;
+		text-align: center;
+	}	
+	
+	.flex-control-nav li {
+		display: inline;
+		margin: 0 5px;
+	}
+	
+	.flex-control-nav li a {
+		display: inline-block;
+		width: 14px;
+		height: 14px;
+		background: #d5d5d5;
+		border: 1px solid #d5d5d5;
+		text-indent: -9999%;
+		cursor: pointer;
+		
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+	}
+	
+	.flex-control-nav li a.active,
+	.flex-control-nav li a:hover {
+		background: #f1f1f1;
+	}
+
+/*categories*/
+ul.categories {
+	margin: 0;
+}
+ul.categories li {
+	border-bottom: 1px dashed #e5e5e5;
+	margin: 0;
+}
+
+ul.categories li a {
+	text-decoration: none;
+	line-height: 35px;
+	display: block;
+}
+
+ul.categories li a:hover {
+	background: #ffffff;
+}
+
+/*tabs*/
+/*first just fix the border-box stuff*/
+ul.tabs {
+	margin: 0;
+}
+ul.tabs li {
+	position: relative;
+	top: 1px;
+}
+
+ul.tabs li a.active {
+	height: 34px;
+	background: url(../images/bg_main.png);
+}
+
+.tabs-content li {
+	padding: 35px 20px;
+	border: 1px solid #DDD;
+	border-top: none;
+}
+
+/*pagination*/
+nav.pagination ul {
+	width: 100%;
+	text-align: center;
+	margin: 21px 0 35px 0;
+}
+
+nav.pagination li {
+	display: inline;
+}
+
+nav.pagination li a {
+	display: inline-block;
+	line-height: 35px;
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	padding: 0 7px;
+	text-decoration: none;
+	border-bottom: 3px solid #cccccc;
+	font-weight: bold;
+}
+
+nav.pagination li a:hover,
+nav.pagination li a.selected {
+	background: url(../images/bg_dark.png);
+	border: none;
+	color: #ffffff;
+}
+
+/* #Page Styles
+================================================== */
+
+/* #Media Queries
+================================================== */
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+	
+		/*sponsors*/
+		.sponsors {
+			text-align: center;
+		}
+		.sponsors img {
+			float: none;
+			max-width: 100%;
+			margin: 0 0 7px;
+		}
+	
+	}
+
+	/* All Mobile Sizes (devices and browser) */
+/*Hide checkbox*/
+input[type=checkbox]{
+  display: none;
+  -webkit-appearance: none;
+}
+
+/*Show menu when invisible checkbox is checked*/
+input[type=checkbox]:checked ~ #menu{
+  display: block;
+}
+
+
+/*Responsive Styles*/
+
+@media screen and (max-width : 760px){
+  /*Make dropdown links appear inline*/
+  ul {
+    position: static;
+    display: none;
+  }
+  /*Create vertical spacing*/
+  li {
+    margin-bottom: 1px;
+  }
+  /*Make all menu links full width*/
+  ul li, li a {
+    width: 100%;
+  }
+}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+		article.preview .thumbnail {
+			display: none;
+		}
+
+		footer.bottom p {
+			text-align: center;
+			margin-bottom: 7px;
+		}
+
+		nav.primary {
+			padding: 21px 0;
+		}
+
+		nav.primary select {
+			display: block;
+		}
+
+		nav.primary ul {
+			display: none;
+		}
+
+		header.main .banner {
+			display: none;
+		}
+	}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
+		
+		article.preview .thumbnail {
+			display: none;
+		}
+
+		footer.bottom p {
+			text-align: center;
+			margin-bottom: 7px;
+		}
+		
+		nav.primary {
+			padding: 21px 0;
+		}
+		
+		nav.primary select {
+			display: block;
+		}
+		
+		nav.primary ul {
+			display: none;
+		}
+		
+		header.main .banner {
+			display: none;
+		}
+	
+	}
+
