@@ -227,4 +227,15 @@ export class app {
       });
   }
 
+  deleteFileFromDatabase(fileID) {
+    let client = new HttpClient();
+    client.fetch("url");
+    this.updateData();
+    this.updateData();
+  }
+
+  getUploaderID(obj) {
+    return "siiajsoniID";
+  }
+
 }
