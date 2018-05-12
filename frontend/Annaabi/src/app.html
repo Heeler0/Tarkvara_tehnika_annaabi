@@ -150,6 +150,9 @@
               <a href="${download(item)}">
                 <button>Download - ${getSize(item)}</button>
               </a>
+              <a if.bind ="uploaderCheck(item)" href="">
+                <button>Delete file</button>
+              <a>
             </div>
             <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;"> Uploaded by
               ${getUploaderUserName(item)} on
