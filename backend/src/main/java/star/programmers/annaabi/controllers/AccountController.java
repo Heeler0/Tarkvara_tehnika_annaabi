@@ -1,11 +1,13 @@
 package star.programmers.annaabi.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
+import star.programmers.annaabi.controllers.responses.LoginResponse;
 import star.programmers.annaabi.database.Account;
 import star.programmers.annaabi.database.AccountRepository;
 import star.programmers.annaabi.database.Upload;
@@ -63,47 +65,65 @@ public class AccountController
             return "An account already exists with this name and/or e-mail. Please try again.";
         }
 
-        return hashedPassword;
+        return "success";
     }
 
     @CrossOrigin
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
     public String login(WebRequest request)
     {
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-
-        if (!isValidName(name))
-            return "Invalid name.";
-
-        if (!isValidPassword(password))
-            return "Invalid password.";
-
-        // hash the password
-        String hashedPassword;
         try
         {
-            hashedPassword = hashPassword(password);
+            ObjectMapper mapper = new ObjectMapper();
+            LoginResponse loginResponse = new LoginResponse();
+
+            String name = request.getParameter("name");
+            String password = request.getParameter("password");
+
+            if (!isValidName(name))
+            {
+                loginResponse.setSuccess(false);
+                loginResponse.setErrorMessage("Username format incorrect.");
+                return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(loginResponse);
+            }
+
+            if (!isValidPassword(password))
+            {
+                loginResponse.setSuccess(false);
+                loginResponse.setErrorMessage("Password format incorrect.");
+                return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(loginResponse);
+            }
+
+            // hash the password
+            String hashedPassword = hashPassword(password);
+
+            // check if such account exists
+            List<Account> accountList = accountRepository.findByNameAndPassword(name, hashedPassword);
+
+            if (accountList.size() == 1)
+            {
+                String token = generateRandomString(16);
+
+                Account account = accountList.get(0);
+                account.setToken(token);
+                accountRepository.save(account);
+
+                loginResponse.setSuccess(true);
+                loginResponse.setToken(token);
+                loginResponse.setUserId(account.getId());
+            }
+            else
+            {
+                loginResponse.setSuccess(false);
+                loginResponse.setErrorMessage("Invalid username and/or password.");
+            }
+
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(loginResponse);
         }
         catch (Exception e)
         {
-            return "Error while hashing password.";
+            return e.getMessage();
         }
-
-        // check if such account exists
-        List<Account> accountList = accountRepository.findByNameAndPassword(name, hashedPassword);
-
-        if (accountList.size() == 1)
-        {
-            String token = generateRandomString(16);
-
-            Account account = accountList.get(0);
-            account.setToken(token);
-            accountRepository.save(account);
-            return token;
-        }
-
-        return "Invalid username and/or password.";
     }
 
     public static boolean isValidName(String name)
