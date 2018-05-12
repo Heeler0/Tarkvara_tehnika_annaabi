@@ -150,7 +150,7 @@
               <a href="${download(item)}">
                 <button>Download - ${getSize(item)}</button>
               </a>
-              <a if.bind ="uploaderCheck(item)" href="">
+              <a if.bind ="uploaderCheck(item)" click.trigger="deleteFileFromDatabase(getFileID(item))">
                 <button>Delete file</button>
               <a>
             </div>
