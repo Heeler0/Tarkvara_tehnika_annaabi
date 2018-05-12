@@ -42,12 +42,6 @@ nav.primary ul li {
 	margin: 0px;
 }
 
-nav.primary select {
-	display: none;
-	width:  100%;
-	height: 28px;
-	margin: 21px 0;
-}
 
 nav.primary ul li {
 	display: inline;
@@ -251,7 +245,6 @@ nav.pagination li a {
 
 nav.pagination li a:hover,
 nav.pagination li a.selected {
-	background: url(../images/bg_dark.png);
 	border: none;
 	color: #ffffff;
 }
@@ -265,20 +258,128 @@ nav.pagination li a.selected {
 	/* Smaller than standard 960 (devices and browsers) */
 	@media only screen and (max-width: 959px) {}
 
-	/* Tablet Portrait size to standard 960 (devices and browsers) */
-	@media only screen and (min-width: 768px) and (max-width: 959px) {
-	
-		/*sponsors*/
-		.sponsors {
-			text-align: center;
-		}
-		.sponsors img {
-			float: none;
-			max-width: 100%;
-			margin: 0 0 7px;
-		}
-	
-	}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: orange;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+#btn {
+  display: none;
+}
+input:checked + .overlay{
+  opacity: 1;
+  z-index: 1;
+}
+.overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: RGBa(255,255,255,0.3);
+  opacity: 0;
+  z-index: -1;
+  transition: 0.5s ease;
+}
+.popup {
+  max-height: 90%;
+  position: absolute;
+  padding: 10px;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  overflow-y: auto;
+  background: #fff;
+  color: #999;
+  transform: translate(-50%,-50%);
+  border-radius: 5px;
+}
+.popup input {
+  display: block;
+  margin: 20px 0;
+  width: 50%;
+  padding: 5px 0;
+  transition: 0.25s ease;
+  color: #333;
+  border: none;
+  border-bottom: 1px solid transparent;
+  font-size: 15px;
+  outline: none;
+}
+.popup input:focus {
+  width: 90%;
+  border-bottom: 1px #aaa solid;
+}
+.login {
+  margin: auto;
+  display: block;
+  width: 50px;
+  background: #eee;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  text-align: center;
+}
+.login:hover {
+  background: #e0e0e0;
+}
+.username {
+  color: #005DDD;
+  text-decoration: none;
+}
+.username:hover {
+  color: #00419A;
+  text-decoration: underline;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 	/* All Mobile Sizes (devices and browser) */
 /*Hide checkbox*/
@@ -327,9 +428,6 @@ input[type=checkbox]:checked ~ #menu{
 			padding: 21px 0;
 		}
 
-		nav.primary select {
-			display: block;
-		}
 
 		nav.primary ul {
 			display: none;
@@ -354,10 +452,6 @@ input[type=checkbox]:checked ~ #menu{
 		
 		nav.primary {
 			padding: 21px 0;
-		}
-		
-		nav.primary select {
-			display: block;
 		}
 		
 		nav.primary ul {

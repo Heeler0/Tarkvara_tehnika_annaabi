@@ -63,36 +63,47 @@
             </ul>
           </li>
           <li>
-            <a show.bind="!sessionID">Login</a>
-            <ul style="background-color: #1EAEDB; border-radius: 2px">
-                  <form class="form" submit.delegate="login()">
-                    <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
-                    <input type="password" value.bind="password" placeholder="Parool" required/>
-                    <br/>
-                    <input class="button" type="submit" value="Login"/>
-                  </form>
-            </ul>
+            <a href="#popup1" show.bind="!sessionID">Login</a>
+            <div id="popup1" class="overlay">
+              <div class="popup">
+                <a class="close" href="#">×</a>
+                <form show.bind="!sessionID" class="form" submit.delegate="login()">
+                  <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
+                  <input type="password" value.bind="password" placeholder="Parool" required/>
+                  <br/>
+                  <input type="submit" value="Login"/>
+                </form>
+              </div>
+            </div>
           </li>
           <li><a click.trigger="logout()" show.bind="sessionID">Logi välja</a></li>
-          <li><a show.bind="!sessionID">Registreeri</a>
-            <ul style="background-color: #1EAEDB; border-radius: 2px">
+          <li>
+            <a href="#popup2" show.bind="!sessionID">Registreeri</a>
+            <div id="popup2" class="overlay">
+              <div class="popup">
+                <a class="close" href="#">×</a>
                 <form class="form" method="post" submit.delegate="createUser()">
                   <input type="email" value.bind="createEmail" placeholder="Email" required/>
                   <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required/>
                   <input type="password" value.bind="createPassword" placeholder="Parool" required/>
                   <input class="button" type="submit" value="Loo kasutaja"/>
                 </form>
-            </ul>
+              </div>
+            </div>
           </li>
-          <li><a show.bind="sessionID">Lisa fail</a>
-            <ul>
+          <li>
+            <a href="#popup3" show.bind="sessionID">Lisa fail</a>
+            <div id="popup3" class="overlay">
+              <div class="popup">
+                <a class="close" href="#">×</a>
                 <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()"
                       id="fileUploadForm">
-                    <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
+                  <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
                   <div>
                     <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
                     <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri'
                            if.bind="selectedFiles.length > 0" required>
+                    <div>
                     <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
                       <option value="" disabled selected>Valige õppeaine</option>
                       <option value="1">Matemaatika</option>
@@ -108,10 +119,13 @@
                       <option value="11">Emakeel</option>
                       <option value="12">Võõrkeeled</option>
                     </select>
+                    </div>
                   </div>
                 </form>
-            </ul>
+              </div>
+            </div>
           </li>
+
           <span style="float: right;">
       <form role="form" submit.delegate="searchByName()">
         <input class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
@@ -129,6 +143,21 @@
       }
     </style>
   </header>
+  <select>
+    <option value="" disabled selected>Valige õppeaine</option>
+    <option value="1">Matemaatika</option>
+    <option value="2">Ajalugu</option>
+    <option value="3">Bioloogia</option>
+    <option value="4">Kirjandus</option>
+    <option value="5">Füüsika</option>
+    <option value="6">Keemia</option>
+    <option value="7">Geograafia</option>
+    <option value="8">Inimeseõpetus</option>
+    <option value="9">Ühiskonnaõpetus</option>
+    <option value="10">Muusika</option>
+    <option value="11">Emakeel</option>
+    <option value="12">Võõrkeeled</option>
+  </select>
   <div style="margin-top: 5%">
 
     <div class="container">
