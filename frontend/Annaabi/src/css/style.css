@@ -162,11 +162,10 @@ table {
   flex-direction: column;
 }
 .tabs > .tabs-content form input {
-  padding: 10px;
   margin: 15px 0;
   border: none;
   border-bottom: solid 1px #33C3F0;
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 1px;
   transition: 0.1s;
 }
@@ -175,7 +174,6 @@ table {
   outline: none;
 }
 .tabs > .tabs-content input[type="submit"] {
-  padding: 15px 0;
   width: 100%;
   background: #33C3F0;
   color: #fff;
