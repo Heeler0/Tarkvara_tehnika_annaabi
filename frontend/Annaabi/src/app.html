@@ -96,14 +96,14 @@
                         <option value="12">Võõrkeeled</option>
                       </select>
                     </div>
-                    <a onClick="window.location.href='#'"><input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/></a>
+                    <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
                   </div>
                 </form>
               </div>
             </div>
           </li>
-          <li><a show.bind="!sessionID" style="color: #FFFFFF"><label for="modal-toggle">Login</label></a></li>
-          <li><a click.trigger="logout()" show.bind="sessionID">Logi välja</a></li>
+          <li><a show.bind="!sessionID" style="color: #FFFFFF"><label for="modal-toggle">Login/Reg</label></a></li>
+          <li><a click.trigger="logout()" show.bind="sessionID" style="color: #FFFFFF">Logi välja</a></li>
           <li>
             <form role="form" submit.delegate="searchByName()" id="searchForm">
               <input id="search" onclick="clear()" class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
