@@ -104,8 +104,8 @@
           </li>
 
           <span style="float: right;">
-      <form role="form" submit.delegate="searchByName()">
-        <input class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
+      <form role="form" submit.delegate="searchByName()" id="searchForm">
+        <input id="search" onclick="clear()" class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
                style="margin-right: 5px;">
       </form>
 		</span>
@@ -120,11 +120,13 @@
       }
     </style>
     <script>
-      
+      function clear() {
+        document.getElementById("searchForm").reset();
+      }
     </script>
     <input id="modal-toggle" type="checkbox">
     <label class="modal-backdrop" for="modal-toggle"></label>
-    <div class="modal-content">
+    <div class="modal-content" show.bind="!sessionID">
       <label class="modal-close-btn" for="modal-toggle">
       </label>
       <div class="tabs">
@@ -132,9 +134,9 @@
         <input class="radio" id="tab-1" name="tabs-name" type="radio" checked>
         <label for="tab-1" class="table"><span>Login</span></label>
         <div class="tabs-content">
-          <form show.bind="!sessionID" class="form" submit.delegate="login()" >
-            <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
-            <input type="password" value.bind="password" placeholder="Parool" required/>
+          <form class="form" submit.delegate="login()">
+            <input type="text" value.bind="userName" placeholder="Kasutajanimi" pattern=".{3,}" required title="3 tähemärki vähemalt"/>
+            <input type="password" value.bind="password" placeholder="Parool" pattern=".{3,}" required title="3 tähemärki vähemalt"/>
             <br/>
             <input type="submit" value="Login"/>
           </form>
@@ -143,11 +145,11 @@
         <input class="radio" id="tab-2" name="tabs-name" type="radio">
         <label for="tab-2" class="table"><span>Registreeri</span></label>
         <div class="tabs-content">
-          <form action="">
-            <input type="email" value.bind="createEmail" placeholder="Email" required/>
-            <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required/>
-            <input type="password" value.bind="createPassword" placeholder="Parool" required/>
-            <input type="submit" value="Loo kasutaja"/>
+          <form class="form" method="post" submit.delegate="createUser()">
+            <input type="email" value.bind="createEmail" placeholder="Email" pattern=".{3,}" required title="3 tähemärki vähemalt"/>
+            <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" pattern=".{3,}" required title="3 tähemärki vähemalt"/>
+            <input type="password" value.bind="createPassword" placeholder="Parool" pattern=".{3,}" required title="3 tähemärki vähemalt"/>
+            <input class="button" type="submit" value="Loo kasutaja"/>
           </form>
         </div>
       </div>
