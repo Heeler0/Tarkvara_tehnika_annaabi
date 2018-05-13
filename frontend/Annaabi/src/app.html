@@ -3,6 +3,8 @@
   <require from="css/skeleton.css"></require>
   <require from="css/layout.css"></require>
   <require from="css/base.css"></require>
+  <require from="css/style.css"></require>
+
 
 
   <!DOCTYPE html>
@@ -63,34 +65,9 @@
             </ul>
           </li>
           <li>
-            <a href="#popup1" show.bind="!sessionID">Login</a>
-            <div id="popup1" class="overlay">
-              <div class="popup">
-                <a class="close" href="#">×</a>
-                <form show.bind="!sessionID" class="form" submit.delegate="login()" >
-                  <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
-                  <input type="password" value.bind="password" placeholder="Parool" required/>
-                  <br/>
-                  <input type="submit" value="Login"/>
-                </form>
-              </div>
-            </div>
+            <a show.bind="!sessionID"><label for="modal-toggle">Login</label></a>
           </li>
           <li><a click.trigger="logout()" show.bind="sessionID">Logi välja</a></li>
-          <li>
-            <a href="#popup2" show.bind="!sessionID">Registreeri</a>
-            <div id="popup2" class="overlay">
-              <div class="popup">
-                <a class="close" href="#">×</a>
-                <form class="form" method="post" submit.delegate="createUser()">
-                  <input type="email" value.bind="createEmail" placeholder="Email" required/>
-                  <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required/>
-                  <input type="password" value.bind="createPassword" placeholder="Parool" required/>
-                  <input class="button" type="submit" value="Loo kasutaja"/>
-                </form>
-              </div>
-            </div>
-          </li>
           <li>
             <a href="#popup3" show.bind="sessionID">Lisa fail</a>
             <div id="popup3" class="overlay">
@@ -145,22 +122,39 @@
     <script>
       
     </script>
+    <label class="button" for="modal-toggle">Login</label>
+
+    <input id="modal-toggle" type="checkbox">
+    <label class="modal-backdrop" for="modal-toggle"></label>
+    <div class="modal-content">
+      <label class="modal-close-btn" for="modal-toggle">
+      </label>
+      <div class="tabs">
+        <!--  LOG IN  -->
+        <input class="radio" id="tab-1" name="tabs-name" type="radio" checked>
+        <label for="tab-1" class="table"><span>Login</span></label>
+        <div class="tabs-content">
+          <form show.bind="!sessionID" class="form" submit.delegate="login()" >
+            <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
+            <input type="password" value.bind="password" placeholder="Parool" required/>
+            <br/>
+            <input type="submit" value="Login"/>
+          </form>
+        </div>
+        <!--  SIGN UP  -->
+        <input class="radio" id="tab-2" name="tabs-name" type="radio">
+        <label for="tab-2" class="table"><span>Registreeri</span></label>
+        <div class="tabs-content">
+          <form action="">
+            <input type="email" value.bind="createEmail" placeholder="Email" required/>
+            <input type="text" value.bind="createUserName" placeholder="Kasutajanimi" required/>
+            <input type="password" value.bind="createPassword" placeholder="Parool" required/>
+            <input class="button" type="submit" value="Loo kasutaja"/>
+          </form>
+        </div>
+      </div>
+    </div>
   </header>
-  <select>
-    <option value="" disabled selected>Valige õppeaine</option>
-    <option value="1">Matemaatika</option>
-    <option value="2">Ajalugu</option>
-    <option value="3">Bioloogia</option>
-    <option value="4">Kirjandus</option>
-    <option value="5">Füüsika</option>
-    <option value="6">Keemia</option>
-    <option value="7">Geograafia</option>
-    <option value="8">Inimeseõpetus</option>
-    <option value="9">Ühiskonnaõpetus</option>
-    <option value="10">Muusika</option>
-    <option value="11">Emakeel</option>
-    <option value="12">Võõrkeeled</option>
-  </select>
   <div style="margin-top: 5%">
 
     <div class="container">
@@ -182,6 +176,9 @@
               <a href="${download(item)}">
                 <button>Download - ${getSize(item)}</button>
               </a>
+              <a if.bind ="uploaderCheck(item)" click.trigger="deleteFileFromDatabase(getFileID(item))">
+                <button>Delete file</button>
+              <a>
             </div>
 
             <div class="ex3" style="margin-top: 1%; margin-left: 1%;">

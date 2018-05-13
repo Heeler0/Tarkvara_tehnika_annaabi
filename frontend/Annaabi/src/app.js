@@ -8,6 +8,7 @@ export class app {
   createEmail;
 
   sessionID;
+  userID;
   userName;
   password;
 
@@ -21,8 +22,11 @@ export class app {
         this.data1 = data
       });
     this.latestUrl = "http://194.135.95.77:8080/api/getFileList";
-	
-	this.sessionID = document.cookie;
+    if (document.cookie !== "") {
+      var cookie = JSON.parse(document.cookie);
+      this.sessionID = cookie.session;
+      this.userID = cookie.user;
+    }
   }
 
   main() {
@@ -190,24 +194,27 @@ export class app {
       method: "Post",
       body: formData
     })
-      .then(response => response.text())
+      .then(response => response.json())
       .then(body => {
-		  if (body.length != 16) {
+      var session = body.token;
+      var id = body.userId;
+		  if (session.length !== 16) {
 			  alert(body);
 		  }
 		  else {
-			  this.sessionID = body;
-			  document.cookie = this.sessionID;
+			  this.sessionID = session;
+			  this.userID = id;
+			  var text = '{"session":"'+ session + '", "user":"'+ id +'"}';
+			  document.cookie = text;
 		  }
-		  
 		  this.userName = "";
 		  this.password = "";
-		  console.log(this.sessionID);
 	});
   }
 
   logout() {
 	  this.sessionID = "";
+	  this.userID = "";
 	  document.cookie = "";
   }
 
@@ -225,6 +232,21 @@ export class app {
       .then(data => {
         this.data1 = data;
       });
+  }
+
+  deleteFileFromDatabase(fileID) {
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/deleteFile?fileId="+ fileID +"&token=" + this.sessionID);
+    this.updateData();
+    this.updateData();
+  }
+
+  uploaderCheck(obj) {
+    if (this.userID == obj.uploaderId) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

@@ -96,11 +96,23 @@ public class FileUploadController
         }
 
         // save file to storage
-        storageService.store(file);
+        String fileExtension;
+        int i = file.getOriginalFilename().lastIndexOf('.');
+        if (i > 0)
+        {
+            fileExtension = file.getOriginalFilename().substring(i);
+        }
+        else
+        {
+            return "Invalid file extension.";
+        }
+
+        String filename = AccountController.generateRandomString(64) + fileExtension;
+        storageService.store(file, filename);
 
         // save file to database
         Upload upload = new Upload();
-        upload.setFileName(file.getOriginalFilename());
+        upload.setFileName(filename);
         upload.setTitle(title);
         upload.setFileSize((int) file.getSize());
         upload.setFileDescription(description);
