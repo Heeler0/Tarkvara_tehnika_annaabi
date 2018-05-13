@@ -84,13 +84,13 @@
 
 /* #Links
 ================================================== */
-	a, a:visited { color: #333; text-decoration: underline; outline: 0; }
+	a, a:visited { color: #FFF; text-decoration: underline; outline: 0; }
 	p a, p a:visited { line-height: inherit; }
 
 
 /* #Lists
 ================================================== */
-	ul, ol { margin-bottom: 21px; }
+	ul, ol { margin-bottom: 0px; }
 	ul { list-style: none outside; }
 	ol { list-style: decimal; }
 	ol, ul.square, ul.circle, ul.disc { margin-left: 30px; }
@@ -117,7 +117,6 @@
 ================================================== */
 	ul.tabs {
 		display: block;
-		margin: 0 0 20px 0;
 		padding: 0;
 		border-bottom: solid 1px #ddd; }
 	ul.tabs li {
@@ -144,7 +143,6 @@
 		height: 30px;
 		position: relative;
 		top: -4px;
-		padding-top: 4px;
 		border-left-width: 1px;
 		margin: 0 0 0 -1px;
 		color: #0FA0CE;

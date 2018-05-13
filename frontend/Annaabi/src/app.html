@@ -41,16 +41,20 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
   <header style="border-bottom: solid 1px #d8d8d8;">
-    <div class="band navigation"
-         style="background-color: #1EAEDB; position: fixed; width: 100%; z-index: 1; border-radius: 2px; height: 8%">
+    <div style="color: #FFFFFF; align: center">
+      <nav>
+        <div id="logo"></div>
 
-      <nav class="primary container">
-
-        <ul>
-          <li><a click.trigger="main()">KODULEHT</a></li>
-          <li><a>Õppeained</a>
-            <ul style="background-color: #1EAEDB; border-radius: 2px">
-              <li><a click.trigger="selectedCategory(1)"> Matemaatika</a></li>
+        <label for="drop" class="toggle">Menu</label>
+        <input type="checkbox" id="drop" />
+        <ul class="menu">
+          <li><a click.trigger="main()">Koduleht</a></li>
+          <li>
+            <label for="drop-1" class="toggle">Õppeained</label>
+            <a href="#">Õppeained</a>
+            <input type="checkbox" id="drop-1"/>
+            <ul style="z-index: 2; margin: 0px;">
+              <li><a click.trigger="selectedCategory(1)">Matemaatika</a></li>
               <li><a click.trigger="selectedCategory(2)">Ajalugu</a></li>
               <li><a click.trigger="selectedCategory(3)">Bioloogia</a></li>
               <li><a click.trigger="selectedCategory(4)">Kirjandus</a></li>
@@ -65,12 +69,8 @@
             </ul>
           </li>
           <li>
-            <a show.bind="!sessionID"><label for="modal-toggle">Login</label></a>
-          </li>
-          <li><a click.trigger="logout()" show.bind="sessionID">Logi välja</a></li>
-          <li>
             <a href="#popup3" show.bind="sessionID">Lisa fail</a>
-            <div id="popup3" class="overlay">
+            <div id="popup3" class="overlay2" style="z-index: 3">
               <div class="popup">
                 <a class="close" href="#">×</a>
                 <form method="POST" enctype="multipart/form-data" action="" submit.delegate="setUploadUrl()"
@@ -80,39 +80,39 @@
                     <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri'
                            if.bind="selectedFiles.length > 0" required>
                     <div>
-                    <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
-                      <option value="" disabled selected>Valige õppeaine</option>
-                      <option value="1">Matemaatika</option>
-                      <option value="2">Ajalugu</option>
-                      <option value="3">Bioloogia</option>
-                      <option value="4">Kirjandus</option>
-                      <option value="5">Füüsika</option>
-                      <option value="6">Keemia</option>
-                      <option value="7">Geograafia</option>
-                      <option value="8">Inimeseõpetus</option>
-                      <option value="9">Ühiskonnaõpetus</option>
-                      <option value="10">Muusika</option>
-                      <option value="11">Emakeel</option>
-                      <option value="12">Võõrkeeled</option>
-                    </select>
+                      <select id="uploadFileCategoryId" if.bind="selectedFiles.length > 0" required>
+                        <option value="" disabled selected>Valige õppeaine</option>
+                        <option value="1">Matemaatika</option>
+                        <option value="2">Ajalugu</option>
+                        <option value="3">Bioloogia</option>
+                        <option value="4">Kirjandus</option>
+                        <option value="5">Füüsika</option>
+                        <option value="6">Keemia</option>
+                        <option value="7">Geograafia</option>
+                        <option value="8">Inimeseõpetus</option>
+                        <option value="9">Ühiskonnaõpetus</option>
+                        <option value="10">Muusika</option>
+                        <option value="11">Emakeel</option>
+                        <option value="12">Võõrkeeled</option>
+                      </select>
                     </div>
-                    <a onClick="window.location.href='#'"><input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/></a>
+                    <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
                   </div>
                 </form>
               </div>
             </div>
           </li>
-
-          <span style="float: right;">
-      <form role="form" submit.delegate="searchByName()" id="searchForm">
-        <input id="search" onclick="clear()" class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
-               style="margin-right: 5px;">
-      </form>
-		</span>
+          <li><a show.bind="!sessionID" style="color: #FFFFFF"><label for="modal-toggle">Login/Reg</label></a></li>
+          <li><a click.trigger="logout()" show.bind="sessionID" style="color: #FFFFFF">Logi välja</a></li>
+          <li>
+            <form role="form" submit.delegate="searchByName()" id="searchForm">
+              <input id="search" onclick="clear()" class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
+                     style="margin-right: 5px;">
+            </form>
+          </li>
         </ul>
-
-
       </nav>
+
     </div>
     <style>
       input {
@@ -154,6 +154,8 @@
         </div>
       </div>
     </div>
+
+
   </header>
   <div style="margin-top: 5%">
 
@@ -200,18 +202,18 @@
                 </div>
               </div>
             </div>
-            <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;"> Uploaded by
+            <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic; color: #555555"> Uploaded by
               ${getUploaderUserName(item)} on
               ${convertDate(getDate(item))}, Score: ${getVote(item)}
             </div>
             <div show.bind="sessionID">
               <a href="#" click.trigger="castVote(getFileID(item), 1)">
-                <span class="button">a</span>
+                <span class="button">&#128077</span>
               </a>
             </div>
             <div show.bind="sessionID">
               <a href="#" click.trigger="castVote(getFileID(item), -1)">
-                <span class="button">b</span>
+                <span class="button">&#128078</span>
               </a>
             </div>
           </div>
