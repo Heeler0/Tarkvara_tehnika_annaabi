@@ -209,6 +209,8 @@ export class app {
 		  }
 		  this.userName = "";
 		  this.password = "";
+		  this.updateData();
+		  this.updateData();
 	});
   }
 
@@ -216,6 +218,8 @@ export class app {
 	  this.sessionID = "";
 	  this.userID = "";
 	  document.cookie = "";
+    this.updateData();
+    this.updateData();
   }
 
   castVote(id, vote) {
@@ -248,5 +252,7 @@ export class app {
       return false;
     }
   }
+
+
 
 }
