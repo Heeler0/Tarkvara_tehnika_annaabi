@@ -20,7 +20,7 @@
 
 	/* Smaller than standard 960 (devices and browsers) */
 
-.overlay {
+.overlay2 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -31,7 +31,7 @@
   visibility: hidden;
   opacity: 0;
 }
-.overlay:target {
+.overlay2:target {
   visibility: visible;
   opacity: 1;
 }
@@ -71,7 +71,7 @@ input:checked + .overlay{
   opacity: 1;
   z-index: 1;
 }
-.overlay {
+.overlay2 {
   position: fixed;
   height: 100%;
   width: 100%;
