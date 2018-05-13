@@ -67,7 +67,7 @@
             <div id="popup1" class="overlay">
               <div class="popup">
                 <a class="close" href="#">×</a>
-                <form show.bind="!sessionID" class="form" submit.delegate="login()">
+                <form show.bind="!sessionID" class="form" submit.delegate="login()" >
                   <input type="text" value.bind="userName" placeholder="Kasutajanimi" required/>
                   <input type="password" value.bind="password" placeholder="Parool" required/>
                   <br/>
@@ -100,7 +100,6 @@
                       id="fileUploadForm">
                   <input id="fileUpload" type="file" name="file" accept=".pdf,.doc,.docx" files.bind="selectedFiles">
                   <div>
-                    <input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/>
                     <input id="uploadFileTitle" type="text" name="Header" placeholder='Lisage Pealkiri'
                            if.bind="selectedFiles.length > 0" required>
                     <div>
@@ -120,6 +119,7 @@
                       <option value="12">Võõrkeeled</option>
                     </select>
                     </div>
+                    <a onClick="window.location.href='#'"><input class="button" type="submit" value="Lae ülesse" if.bind="selectedFiles.length > 0"/></a>
                   </div>
                 </form>
               </div>
@@ -142,6 +142,9 @@
         color: #181818;
       }
     </style>
+    <script>
+      
+    </script>
   </header>
   <select>
     <option value="" disabled selected>Valige õppeaine</option>
@@ -180,10 +183,7 @@
                 <button>Download - ${getSize(item)}</button>
               </a>
             </div>
-            <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;"> Uploaded by
-              ${getUploaderUserName(item)} on
-              ${convertDate(getDate(item))}, Score: ${getVote(item)}
-            </div>
+
             <div class="ex3" style="margin-top: 1%; margin-left: 1%;">
               <label class="button" for="${getFileID(item)}"
                      click.trigger="comments(getFileID(item))">Kommentaarid</label>
@@ -202,6 +202,10 @@
                   </form>
                 </div>
               </div>
+            </div>
+            <div style="margin-top: 2%; margin-right: 1%; float: right; font-style: italic;"> Uploaded by
+              ${getUploaderUserName(item)} on
+              ${convertDate(getDate(item))}, Score: ${getVote(item)}
             </div>
             <div show.bind="sessionID">
               <a href="#" click.trigger="castVote(getFileID(item), 1)">
