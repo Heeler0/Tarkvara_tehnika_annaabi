@@ -80,7 +80,7 @@ export class app {
 
   getFileName(obj) {
     var header = obj.fileName;
-    return header
+    return this.escapeHtml(header);
   }
 
   getDesc(obj) {
@@ -160,7 +160,7 @@ export class app {
   }
 
   getHeader(obj) {
-    return obj.title;
+    return this.escapeHtml(obj.title);
   }
 
   createUser() {
@@ -184,7 +184,7 @@ export class app {
   }
 
   getUploaderUserName(obj) {
-    return obj.uploaderName;
+    return this.escapeHtml(obj.uploaderName);
   }
 
   login() {
