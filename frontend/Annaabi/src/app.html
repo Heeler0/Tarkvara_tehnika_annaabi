@@ -112,7 +112,7 @@
                 <br>
                 <br>
                 <form role="form" submit.delegate="searchByCategory()" id="AdvancedsearchForm">
-                  <input id="Advancedsearch" class="u-pull-left" type="text" placeholder="Otsi..." value.bind="nameOfSearch"
+                  <input id="Advancedsearch" class="u-pull-left" style="width: 100%" type="text" placeholder="Otsi..." value.bind="nameOfSearch"
                          style="margin-right: 5px;">
                   <div>
                     <select id="AdvancedsearchCat" value.bind="category" required>
@@ -131,6 +131,7 @@
                       <option value="12">Võõrkeeled</option>
                     </select>
                   </div>
+                  <button type="submit" class="button">Otsi</button>
                 </form>
               </div>
             </div>
@@ -214,7 +215,7 @@
                      click.trigger="comments(getFileID(item))">Kommentaarid</label>
               <input style="opacity: 0" type="checkbox" name="one" id="${getFileID(item)}" checked>
               <div class="hide3">
-                <div id="comments${getFileID(item)}">
+                <div style="color: #555555" id="comments${getFileID(item)}">
                   <!-- Comments are inserted here -->
                 </div>
                 <div class="inner3" show.bind="sessionID">
