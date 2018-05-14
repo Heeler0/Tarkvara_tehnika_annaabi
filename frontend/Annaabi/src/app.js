@@ -87,7 +87,7 @@ export class app {
     var desc = obj.fileDescription;
     var newchar = '<br>';
     desc = desc.split('\n').join(newchar);
-    return desc;
+    return this.escapeHtml(desc);
   }
 
   getSize(obj) {
@@ -135,7 +135,7 @@ export class app {
 			commentsHtml += commentHtml;
 		}
 		
-		document.getElementById("comments"+fileId).innerHTML = commentsHtml;
+		document.getElementById("comments"+fileId).innerHTML = this.escapeHtml(commentsHtml);
       });
 	  
 	  return true;
@@ -266,6 +266,15 @@ export class app {
         this.data1 = data;
       });
     this.latestUrl = "http://194.135.95.77:8080/api/getFileList?query=" + ans + "&categoryId" + category;
+  }
+
+  escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
 }
