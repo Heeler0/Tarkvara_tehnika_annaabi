@@ -3,6 +3,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 export class app {
   data1;
   nameOfSearch = "";
+  category;
   createUserName;
   createPassword;
   createEmail;
@@ -253,6 +254,16 @@ export class app {
     }
   }
 
-
+  searchByCategory() {
+    var ans = this.nameOfSearch;
+    var category = this.category;
+    let client = new HttpClient();
+    client.fetch("http://194.135.95.77:8080/api/getFileList?query=" + ans + "&categoryId" + category)
+      .then(response => response.json())
+      .then(data => {
+        this.data1 = data;
+      });
+    this.latestUrl = "http://194.135.95.77:8080/api/getFileList?query=" + ans + "&categoryId" + category;
+  }
 
 }

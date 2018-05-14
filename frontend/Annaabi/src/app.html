@@ -111,11 +111,11 @@
                 <a class="close" href="#">×</a>
                 <br>
                 <br>
-                <form role="form" submit.delegate="searchByName()" id="AdvancedsearchForm">
+                <form role="form" submit.delegate="searchByCategory()" id="AdvancedsearchForm">
                   <input id="Advancedsearch" class="u-pull-left" type="text" placeholder="Otsi..." value.bind="nameOfSearch"
                          style="margin-right: 5px;">
                   <div>
-                    <select id="AdvancedsearchCat" required>
+                    <select id="AdvancedsearchCat" value.bind="category" required>
                       <option value="" disabled selected>Valige õppeaine</option>
                       <option value="1">Matemaatika</option>
                       <option value="2">Ajalugu</option>
