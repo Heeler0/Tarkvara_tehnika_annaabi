@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 import star.programmers.annaabi.database.*;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class CommentController
 
     @Autowired
     AccountController accountController;
+
+    @Autowired
+    UploadRepository uploadRepository;
 
     @CrossOrigin
     @RequestMapping("/api/getComments")
@@ -65,6 +69,14 @@ public class CommentController
         {
             return "Invalid token.";
         }
+
+        Optional<Upload> upload = uploadRepository.findById(fileId);
+
+        if (!upload.isPresent())
+            return "Invalid file id.";
+
+        if (content.isEmpty())
+            return "Invalid content.";
 
         // save new vote to database
         Comment comment = new Comment();
