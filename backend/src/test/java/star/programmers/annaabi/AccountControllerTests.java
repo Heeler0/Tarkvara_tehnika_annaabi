@@ -1,14 +1,44 @@
 package star.programmers.annaabi;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 import star.programmers.annaabi.controllers.AccountController;
+import star.programmers.annaabi.database.Account;
+import star.programmers.annaabi.database.AccountRepository;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
+@DataJpaTest
+@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class AccountControllerTests
 {
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private AccountRepository repository;
+
+    @Autowired
+    private AccountController controller;
+
+    @Mock
+    private WebRequest webRequest;
+
     @Test
     public void testIsValidNameOk()
     {
@@ -87,5 +117,19 @@ public class AccountControllerTests
         catch (Exception e) { }
 
         assertEquals("365bdc6ae8c657d005aefebe0e904766c1d7222251738a317671cd0dac96d50d", hashedPassword);
+    }
+
+    @Test
+    public void testLogin() throws Exception {
+        Mockito.when(webRequest.getParameter("name")).thenReturn("test_name");
+        Mockito.when(webRequest.getParameter("password")).thenReturn("test_password");
+
+        Account account = new Account();
+        account.setName("test_name");
+        account.setPassword(AccountController.hashPassword("test_password"));
+
+        this.entityManager.persist(account);
+
+        System.out.println(controller.login(webRequest));
     }
 }
