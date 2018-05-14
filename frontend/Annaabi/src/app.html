@@ -41,7 +41,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
   <header style="border-bottom: solid 1px #d8d8d8;">
-    <div style="color: #FFFFFF; align: center">
+    <div style="color: #FFFFFF">
       <nav>
         <div id="logo"></div>
 
@@ -105,8 +105,39 @@
           <li><a show.bind="!sessionID" style="color: #FFFFFF"><label for="modal-toggle">Login/Reg</label></a></li>
           <li><a click.trigger="logout()" show.bind="sessionID" style="color: #FFFFFF">Logi välja</a></li>
           <li>
+            <a href="#Asearch">Mad otsing</a>
+            <div id="Asearch" class="overlay2" style="z-index: 3">
+              <div class="popup">
+                <a class="close" href="#">×</a>
+                <br>
+                <br>
+                <form role="form" submit.delegate="searchByName()" id="AdvancedsearchForm">
+                  <input id="Advancedsearch" class="u-pull-left" type="text" placeholder="Otsi..." value.bind="nameOfSearch"
+                         style="margin-right: 5px;">
+                  <div>
+                    <select id="AdvancedsearchCat" required>
+                      <option value="" disabled selected>Valige õppeaine</option>
+                      <option value="1">Matemaatika</option>
+                      <option value="2">Ajalugu</option>
+                      <option value="3">Bioloogia</option>
+                      <option value="4">Kirjandus</option>
+                      <option value="5">Füüsika</option>
+                      <option value="6">Keemia</option>
+                      <option value="7">Geograafia</option>
+                      <option value="8">Inimeseõpetus</option>
+                      <option value="9">Ühiskonnaõpetus</option>
+                      <option value="10">Muusika</option>
+                      <option value="11">Emakeel</option>
+                      <option value="12">Võõrkeeled</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </li>
+          <li>
             <form role="form" submit.delegate="searchByName()" id="searchForm">
-              <input id="search" onclick="clear()" class="u-pull-left" type="text" placeholder="Otsi..." id="search" value.bind="nameOfSearch"
+              <input id="search" class="u-pull-left" type="text" placeholder="Otsi..." value.bind="nameOfSearch"
                      style="margin-right: 5px;">
             </form>
           </li>
@@ -119,11 +150,6 @@
         color: #181818;
       }
     </style>
-    <script>
-      function clear() {
-        document.getElementById("searchForm").reset();
-      }
-    </script>
     <input id="modal-toggle" type="checkbox">
     <label class="modal-backdrop" for="modal-toggle"></label>
     <div class="modal-content" show.bind="!sessionID">
