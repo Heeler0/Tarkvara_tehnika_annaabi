@@ -5,6 +5,16 @@ package star.programmers.annaabi.controllers;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.POITextExtractor;
+import org.apache.poi.extractor.ExtractorFactory;
+import org.apache.poi.hslf.extractor.PowerPointExtractor;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.xslf.extractor.XSLFPowerPointExtractor;
+import org.apache.poi.xslf.usermodel.XSLFSlide;
+import org.apache.poi.xssf.extractor.XSSFExcelExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.xmlbeans.XmlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +30,7 @@ import star.programmers.annaabi.database.Upload;
 import star.programmers.annaabi.database.UploadRepository;
 import star.programmers.annaabi.storage.StorageService;
 import star.programmers.annaabi.storage.exceptions.StorageFileNotFoundException;
+import org.apache.poi.xslf.usermodel.XMLSlideShow;
 
 import java.io.IOException;
 import java.util.List;
@@ -123,20 +134,78 @@ public class FileUploadController
         System.out.println("Saved file: " + upload.getFileName());
 
         redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
-        return "redirect:http://localhost:9000/";
+        return "redirect:http://194.135.95.77/tarkvaratehnika/";
     }
 
     public String generateFileDescription(MultipartFile file)
     {
-        if (file.getOriginalFilename().endsWith(".pdf"))
-        {
-            return generatePdfFileDescription(file);
-        }
+        String fileContentsAsText = getFileContentsAsText(file);
 
-        return "Description generation is not supported for this file type.";
+        if (fileContentsAsText == null)
+            return null;
+
+        return getRandomPartFromText(fileContentsAsText);
     }
 
-    public String generatePdfFileDescription(MultipartFile file)
+    public String getRandomPartFromText(String text)
+    {
+        int descriptionLength = 512;
+        if (text.length() < descriptionLength)
+            return text;
+
+        int descriptionStart = ThreadLocalRandom.current().nextInt(0, text.length() - descriptionLength);
+
+        while (descriptionStart > 0 && text.charAt(descriptionStart) != ' ')
+        {
+            // loop backwards until we encounter a space
+            descriptionStart--;
+        }
+
+        int descriptionEnd = descriptionStart;
+        int lineBreaks = 0;
+        for (int i = descriptionStart; i < descriptionStart + descriptionLength; i++)
+        {
+            char c = text.charAt(i);
+
+            if (c == '\n')
+                lineBreaks++;
+
+            if (lineBreaks >= 10)
+            {
+                if (c == ' ' || descriptionEnd - descriptionStart > descriptionLength * 1.2)
+                    break;
+            }
+
+            descriptionEnd++;
+        }
+
+        String description = "...\r\n" + text.substring(descriptionStart, descriptionEnd) + "\r\n...";
+        description = HtmlUtils.htmlEscape(description);
+        System.out.println("Text size: " + text.length() + " and description: " + description);
+        return description;
+    }
+
+    public String getFileContentsAsText(MultipartFile file)
+    {
+        if (file.getOriginalFilename().endsWith(".pdf"))
+            return getPdfFileContentsAsText(file);
+
+        if (file.getOriginalFilename().endsWith(".docx"))
+            return getDocxFileContentsAsText(file);
+
+        if (file.getOriginalFilename().endsWith(".txt"))
+            return getTxtFileContentsAsText(file);
+
+        if (file.getOriginalFilename().endsWith(".ppt"))
+            return getPptFileContentsAsText(file);
+
+        if (file.getOriginalFilename().endsWith(".xls"))
+            return getXlsFileContentsAsText(file);
+
+        return null;
+    }
+
+    public String getPdfFileContentsAsText(MultipartFile file)
     {
         try
         {
@@ -145,45 +214,67 @@ public class FileUploadController
             String text = stripper.getText(document);
             document.close();
 
-            int descriptionLength = 512;
-            if (text.length() < descriptionLength)
-                return text;
-
-            int descriptionStart = ThreadLocalRandom.current().nextInt(0, text.length() - descriptionLength);
-
-            while (descriptionStart > 0 && text.charAt(descriptionStart) != ' ')
-            {
-                // loop backwards until we encounter a space
-                descriptionStart--;
-            }
-
-            int descriptionEnd = descriptionStart;
-            int lineBreaks = 0;
-            for (int i = descriptionStart; i < descriptionStart + descriptionLength; i++)
-            {
-                char c = text.charAt(i);
-
-                if (c == '\n')
-                    lineBreaks++;
-
-                if (lineBreaks >= 10)
-                {
-                    if (c == ' ' || descriptionEnd - descriptionStart > descriptionLength * 1.2)
-                        break;
-                }
-
-                descriptionEnd++;
-            }
-
-            String description = "...\r\n" + text.substring(descriptionStart, descriptionEnd) + "\r\n...";
-            description = HtmlUtils.htmlEscape(description);
-            System.out.println("File " + file.getOriginalFilename() + " text size: " + text.length() + " and description: " + description);
-            return description;
+            return text;
         }
         catch (IOException e)
         {
             e.printStackTrace();
-            return "PDF description generation failed: " + e.getMessage();
+            return null;
+        }
+    }
+
+    public String getTxtFileContentsAsText(MultipartFile file)
+    {
+        try
+        {
+            return new String(file.getBytes(), "UTF-8");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getPptFileContentsAsText(MultipartFile file)
+    {
+        try
+        {
+            POITextExtractor extractor = ExtractorFactory.createExtractor(file.getInputStream());
+            return extractor.getText();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getDocxFileContentsAsText(MultipartFile file)
+    {
+        try
+        {
+            POITextExtractor extractor = ExtractorFactory.createExtractor(file.getInputStream());
+            return extractor.getText();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getXlsFileContentsAsText(MultipartFile file)
+    {
+        try
+        {
+            POITextExtractor extractor = ExtractorFactory.createExtractor(file.getInputStream());
+            return extractor.getText();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -196,6 +287,15 @@ public class FileUploadController
             return true;
 
         if (fileName.endsWith(".docx") && contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+            return true;
+
+        if (fileName.endsWith(".txt") && contentType.equals("text/plain"))
+            return true;
+
+        if (fileName.endsWith(".ppt") && contentType.equals("application/vnd.ms-powerpoint"))
+            return true;
+
+        if (fileName.endsWith(".xls") && contentType.equals("application/vnd.ms-excel"))
             return true;
 
         return false;
