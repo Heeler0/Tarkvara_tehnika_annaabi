@@ -129,8 +129,9 @@ export class app {
 		for (var i = 0; i < data.length; i++){
 			var commentObject = data[i];
 			var commentContent = commentObject["comment"];
-			
-			var commentHtml = commentContent + "<br><hr>"; // comment html
+			var commentAuthor = commentObject["authorName"];
+      var commentDate =  commentObject["commentDate"];
+			var commentHtml = commentContent + "<br><br>" + "By " + commentAuthor + ", on " + this.convertDate(commentDate) + "<hr>"; // comment html
 			commentsHtml += commentHtml;
 		}
 		
@@ -237,6 +238,7 @@ export class app {
       .then(data => {
         this.data1 = data;
       });
+
   }
 
   deleteFileFromDatabase(fileID) {
