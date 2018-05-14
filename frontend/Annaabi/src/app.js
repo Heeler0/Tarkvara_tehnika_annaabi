@@ -84,10 +84,10 @@ export class app {
   }
 
   getDesc(obj) {
-    var desc = obj.fileDescription;
+    var desc = this.escapeHtml(obj.fileDescription);
     var newchar = '<br>';
     desc = desc.split('\n').join(newchar);
-    return this.escapeHtml(desc);
+    return desc;
   }
 
   getSize(obj) {

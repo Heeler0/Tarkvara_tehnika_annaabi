@@ -1,4 +1,4 @@
-<template xmlns:font="http://www.w3.org/1999/xhtml">
+<template xmlns:font="http://www.w3.org/1999/xhtml" xmlns:word-wrap="http://www.w3.org/1999/xhtml">
   <require from="css/normalize.css"></require>
   <require from="css/skeleton.css"></require>
   <require from="css/layout.css"></require>
@@ -197,7 +197,7 @@
                 ${getHeader(item)}
               </h3>
             </div>
-            <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px;">
+            <div style="border-bottom: 1px solid #d8d8d8; padding-bottom: 0px; word-wrap: break-word;">
               <p innerHTML.bind="getDesc(item)" style="padding-bottom: 0px;">
               </p>
             </div>
