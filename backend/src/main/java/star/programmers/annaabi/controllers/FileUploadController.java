@@ -65,8 +65,18 @@ public class FileUploadController
     {
         Resource file = storageService.loadAsResource(filename);
 
+        List<Upload> uploads = uploadRepository.findByFileName(filename);
+
+        if (uploads.size() != 1)
+            return ResponseEntity.notFound().build();
+
+        Upload upload = uploads.get(0);
+        String extension = filename.substring(filename.lastIndexOf('.'));
+
+        String downloadFileName = upload.getTitle() + extension;
+
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                "attachment; filename=\"" + downloadFileName + "\"").body(file);
     }
 
     // Upload a file

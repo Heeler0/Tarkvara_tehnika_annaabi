@@ -16,4 +16,6 @@ public interface UploadRepository extends PagingAndSortingRepository<Upload, Lon
     List<Upload> findByTitleContainingIgnoreCaseAndCategoryIdOrderByIdDesc(String query, Long categoryId);
 
     List<Upload> findByCategoryIdOrderByIdDesc(Long categoryId);
+
+    List<Upload> findByFileName(String fileName);
 }
