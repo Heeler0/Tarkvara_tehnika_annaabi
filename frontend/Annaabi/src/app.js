@@ -131,11 +131,11 @@ export class app {
 			var commentContent = commentObject["comment"];
 			var commentAuthor = commentObject["authorName"];
       var commentDate =  commentObject["commentDate"];
-			var commentHtml = commentContent + "<br><br>" + "By " + commentAuthor + ", on " + this.convertDate(commentDate) + "<hr>"; // comment html
+			var commentHtml = this.escapeHtml(commentContent) + "<br><br>" + "By " + commentAuthor + ", on " + this.convertDate(commentDate) + "<hr>"; // comment html
 			commentsHtml += commentHtml;
 		}
 		
-		document.getElementById("comments"+fileId).innerHTML = this.escapeHtml(commentsHtml);
+		document.getElementById("comments"+fileId).innerHTML = commentsHtml;
       });
 	  
 	  return true;
